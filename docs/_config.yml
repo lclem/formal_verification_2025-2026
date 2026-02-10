@@ -1,0 +1,7 @@
+theme: jekyll-theme-slate
+title: Formal verification (2025-2026)
+description: mondays 12:15-13:45 (lecture) / 14:15-15:45 (tutorial), room P112@Pasteura 7
+class: title, shelf, no-footer, fullbleed
+github:
+  is_project_page: false
+  

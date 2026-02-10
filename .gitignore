@@ -1,0 +1,8 @@
+
+.DS_Store
+*.scssc
+docs/.jekyll-metadata
+**/_site/*
+*.lock
+**/.stack-work/*
+acknowledgments/acknowledgments.cabal
