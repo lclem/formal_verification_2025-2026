@@ -1,4 +1,4 @@
-##  Lectures
+##  Calendar
 
 | week |  date | lecture | tutorial | note          |
 | ---: | ----: | :------ | :------- | ------------- |
