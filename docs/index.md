@@ -1,3 +1,22 @@
+# Foundations of formal verification
+## Plan (14 lectures)
+- verification for finite-state systems (2 lectures)
+	- temporal logics: LTL, CTL, CTL*
+- verification for infinite-state systems (4 lectures)
+	- pushdown automata
+	- lossy channel systems
+	- timed and hybrid automata
+- synthesis of finite-state programs (1 lecture)
+	- Church's problem
+	- Büchi-Landweber's theorem
+- verification of stochastic models (4 lectures)
+	- discrete and continuous-time finite Markov chains
+	- recursive Markov chains / probabilistic pushdown automata
+	- Markov decision processes
+- control of discrete event systems (1 lecture)
+	- Ramadge-Wonham problem
+- proving termination of programs with the size-change principle (1 lecture)
+* computing invariants in discrete and continuous-time polynomial dynamical systems (1 lecture)
 ##  Calendar
 
 | week |  date | lecture | tutorial | note          |
@@ -19,4 +38,5 @@
 |   14 | 01.06 |         |          |               |
 |   15 | 08.06 |         |          |               |
 
-[[sources](https://github.com/lclem/formal_verification_2025-2026)]
+[ [USOS](https://usosweb.mimuw.edu.pl/kontroler.php?_action=katalog2/przedmioty/pokazPrzedmiot&kod=1000-2M25WER) ]
+[ [sources](https://github.com/lclem/formal_verification_2025-2026) ]
