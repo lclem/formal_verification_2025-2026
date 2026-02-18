@@ -2,21 +2,22 @@
 ## Plan (14 lectures)
 - verification for finite-state systems (2 lectures)
 	- temporal logics: LTL, CTL, CTL*
+	- translation from logics to automata
 - verification for infinite-state systems (4 lectures)
 	- pushdown automata
 	- lossy channel systems
 	- timed and hybrid automata
-- synthesis of finite-state programs (1 lecture)
-	- Church's problem
-	- Büchi-Landweber's theorem
 - verification of stochastic models (4 lectures)
 	- discrete and continuous-time finite Markov chains
 	- recursive Markov chains / probabilistic pushdown automata
 	- Markov decision processes
+- synthesis of finite-state programs (1 lecture)
+	- Church's problem
+	- Büchi-Landweber's theorem
 - control of discrete event systems (1 lecture)
 	- Ramadge-Wonham problem
 - proving termination of programs with the size-change principle (1 lecture)
-* computing invariants in discrete and continuous-time polynomial dynamical systems (1 lecture)
+* computing invariants in polynomial dynamical systems (1 lecture)
 ##  Calendar
 
 | week |  date | lecture | tutorial | note          |
