@@ -18,6 +18,7 @@
 - proving termination of programs with the size-change principle (1 lecture)
 * computing invariants in polynomial dynamical systems (1 lecture)
 #  Calendar
+
 | week |  date | lecture                                | tutorial                                 | note                      |
 | ---: | ----: | :------------------------------------- | :--------------------------------------- | ------------------------- |
 |    0 | 23.02 | [lecture 01](docs/lectures/01/summary) | XXXXXX                                   | lecture by Piotrek Hofman |
