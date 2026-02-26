@@ -1,0 +1,8 @@
+- Kripke structures
+- Büchi automata and generalised Büchi automata
+	- basic automata constructions: union and intersection
+	- deciding emptiness of Büchi automata
+	- translation from generalised Büchi automata to Büchi automata
+- linear temporal logic (LTL)
+	- syntax and semantics of LTL
+	- translation to generalised Büchi automata
