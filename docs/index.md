@@ -41,3 +41,4 @@
 
 [ [USOS](https://usosweb.mimuw.edu.pl/kontroler.php?_action=katalog2/przedmioty/pokazPrzedmiot&kod=1000-2M25WER) ]
 [ [sources](https://github.com/lclem/formal_verification_2025-2026){:target="_blank"} ]
+[![logo](https://github.com/lclem/formal_verification_2025-2026/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/lclem/formal_verification_2025-2026){:target="_blank"}
