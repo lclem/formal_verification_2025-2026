@@ -1,3 +1,8 @@
+---
+title: Lecture 1
+permalink: lecture-01
+---
+# content of the lecture
 - Kripke structures
 - Büchi automata and generalised Büchi automata
 	- basic automata constructions: union and intersection
