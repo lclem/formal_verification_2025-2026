@@ -1,6 +1,6 @@
 ---
 title: Lecture 1
-permalink: lecture-01
+permalink: docs/lectures/01/lecture-01
 ---
 # content of the lecture
 - Kripke structures
