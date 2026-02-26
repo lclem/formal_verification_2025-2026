@@ -4,6 +4,7 @@ description: mondays 12:15-13:45 (lecture) / 14:15-15:45 (tutorial), room P112@P
 class: title, shelf, no-footer, fullbleed
 plugins:
   - jekyll-pdf-embed
+  - jekyll-last-modified-at
 github:
   is_project_page: false
   
