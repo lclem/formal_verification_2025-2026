@@ -9,4 +9,4 @@ permalink: docs/lectures/02/summary
 	- translation of LTL to alternating Büchi automata
 	- translation from alternating Büchi automata to Büchi automata
 # references
-- ["Alternating automata and program verification", Vardi, 1995](docs/lectures/02/attachments/vardi)
+- ["Alternating automata and program verification", Vardi, 1995](docs/lectures/02/attachments/vardi.pdf)
