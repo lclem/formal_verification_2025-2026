@@ -1,5 +1,4 @@
-# Foundations of formal verification
-## Plan (14 lectures)
+# Plan (14 lectures)
 - verification for finite-state systems (2 lectures)
 	- temporal logics: LTL, CTL, CTL*
 	- translation from logics to automata
@@ -18,8 +17,7 @@
 	- Ramadge-Wonham problem
 - proving termination of programs with the size-change principle (1 lecture)
 * computing invariants in polynomial dynamical systems (1 lecture)
-##  Calendar
-
+#  Calendar
 | week |  date | lecture                                | tutorial                                 | note                      |
 | ---: | ----: | :------------------------------------- | :--------------------------------------- | ------------------------- |
 |    0 | 23.02 | [lecture 01](docs/lectures/01/summary) | XXXXXX                                   | lecture by Piotrek Hofman |
