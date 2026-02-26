@@ -11,3 +11,5 @@ permalink: docs/lectures/01/summary
 - linear temporal logic (LTL)
 	- syntax and semantics of LTL
 	- translation to generalised Büchi automata
+# references
+- ["Principles of Model Checking", Baier & Katoen, §4.3, 5](https://dl.acm.org/doi/10.5555/1373322)
