@@ -27,7 +27,7 @@
 |    2 | 09.03 |                                        |                                          |                           |
 |    3 | 16.03 |                                        |                                          |                           |
 |    4 | 23.03 |                                        |                                          |                           |
-|    5 | 30.03 | XXXXXX                                 | XXXXXX                                   | friday                    |
+|    5 | 30.03 | XXXXXX                                 | XXXXXX                                   | monday := friday          |
 |    6 | 06.04 | XXXXXX                                 | XXXXXX                                   | Easter monday             |
 |    7 | 13.04 |                                        |                                          |                           |
 |    8 | 20.04 |                                        |                                          |                           |
