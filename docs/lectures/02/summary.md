@@ -9,5 +9,7 @@ permalink: docs/lectures/02/summary
 	- translation of LTL to alternating Büchi automata
 	- translation from alternating Büchi automata to Büchi automata
 # references
-- ["Alternating automata and program verification", Vardi, 1995](../../..//assets/pdf/vardi.pdf)
-- 
+- ["Formal Methods in Industry", 2024](../../../fmi.pdf)
+- ["On Formal Methods Thinking in Computer Science Education", 2024](../../../fmt.pdf)
+- ["Alternating automata and program verification", Vardi, 1995](../../../assets/pdf/vardi.pdf)
+- ["Principles of Model Checking", Baier & Katoen, §4.3, 5](https://dl.acm.org/doi/10.5555/1373322)
