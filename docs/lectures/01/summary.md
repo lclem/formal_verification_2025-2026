@@ -2,7 +2,7 @@
 title: Lecture 1
 permalink: docs/lectures/01/summary
 ---
-# content of the lecture
+# summary
 - Kripke structures
 - Büchi automata and generalised Büchi automata
 	- basic automata constructions: union and intersection
