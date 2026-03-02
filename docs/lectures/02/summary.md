@@ -4,8 +4,8 @@ permalink: docs/lectures/02/summary
 ---
 # Lecture 2
 ## summary
-* overview of formal methods, formal verification, and the course [[slides](https://docs.google.com/presentation/d/1pZlRlwdAZ3Kmqw_EQsUnyrjxTkCLIUVXG91PrVWzEg0/edit?usp=sharing)][[pdf](../../../assets/slides/01.pdf)]
-- LTL and alternating Büchi automata [[slides](https://docs.google.com/presentation/d/1Rp_C77-y_XkoVdYTa4NG1GYv91paV5duNti5AkMTUE0/edit?usp=sharing)][[pdf](../../../assets/slides/02.pdf)]
+* overview of formal methods, formal verification, and the course [[slides](https://docs.google.com/presentation/d/1pZlRlwdAZ3Kmqw_EQsUnyrjxTkCLIUVXG91PrVWzEg0/edit?usp=sharing)]
+- LTL and alternating Büchi automata [[slides](https://docs.google.com/presentation/d/1Rp_C77-y_XkoVdYTa4NG1GYv91paV5duNti5AkMTUE0/edit?usp=sharing)]
 	- basic automata constructions
 	- translation of LTL to alternating Büchi automata
 	- translation from alternating Büchi automata to Büchi automata
