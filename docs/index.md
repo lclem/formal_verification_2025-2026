@@ -22,7 +22,7 @@
 | week |  date | lecture                                | tutorial                                 | note                      |
 | ---: | ----: | :------------------------------------- | :--------------------------------------- | ------------------------- |
 |    0 | 23.02 | [lecture 01](docs/lectures/01/summary) | XXXXXX                                   | lecture by Piotrek Hofman |
-|    1 | 02.03 | [lecture 02](docs/lectures/02/summary) | [tutorial 02](docs/tutorials/02/summary) |                           |
+|    1 | 02.03 | [lecture 02](docs/lectures/02/summary) | [tutorial 02](docs/assets/tutorials/build/02.pdf) |                           |
 |    2 | 09.03 |                                        |                                          |                           |
 |    3 | 16.03 |                                        |                                          |                           |
 |    4 | 23.03 |                                        |                                          |                           |
