@@ -1,8 +1,15 @@
-
 .DS_Store
 *.scssc
 docs/.jekyll-metadata
 **/_site/*
 *.lock
 **/.stack-work/*
-acknowledgments/acknowledgments.cabal
+Gemfile.lock
+
+*.aux
+*.log
+*.out
+*.pdfsync
+*..synctex.gz
+
+docs/assets/tutorials/*.pdf

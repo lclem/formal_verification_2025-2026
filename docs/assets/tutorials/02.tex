@@ -1,0 +1,145 @@
+% !TEX root = 02.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 02}
+
+\begin{document}
+
+\maketitle
+
+\section*{Linear temporal logic}
+
+Fix a set of propositional variables $P$.
+%
+Recall that linear temporal logic (LTL) formulas over $P$
+are defined by the following (minimalistic) grammar:
+%
+\begin{align*}
+	\varphi, \psi ::= \true \sep \false \sep p \sep \neg \varphi \sep \varphi \wedge \varphi \sep \X \varphi \sep \varphi \U \psi,
+\end{align*}
+%
+where $p \in P$.
+%
+We define the derived operators
+%
+\begin{align*}
+	\F \varphi &= \true \U \varphi \\
+	\G \varphi &= \neg \F \neg \varphi.
+\end{align*}
+
+\begin{exercise}
+	Write LTL formulas for the following properties:
+	\begin{enumerate}
+		\item $p$ holds infinitely often;
+		\item whenever $p$ holds, then $q$ holds afterwards;
+		\item $p$ holds \emph{precisely} at every even step;
+	\end{enumerate}
+\end{exercise}
+
+\begin{solution}
+	To express that $p$ holds infinitely often,
+	we can write $\G \F p$.
+	The second property is expressed by $\G (p \to \F q)$.
+	The last property can be expressed in a variety of ways.
+	For instance, we can write
+	%
+	\begin{align*}
+		p \wedge \G ((p \implies \X \neg p) \wedge (\neg p \implies \X p)). \qedhere
+	\end{align*}
+\end{solution}
+
+\begin{exercise}
+	Consider the property
+	``for every prefix of the computation,
+	the number of times $p$ holds is at most the number of times $q$ holds''.
+	Is this property expressible in LTL?
+\end{exercise}
+
+\begin{solution}
+	No, the stated property is not expressible in LTL.
+	The reason is that LTL formulas can only express $\omega$-regular properties,
+	and the property in question is not $\omega$-regular.
+\end{solution}
+
+\begin{exercise}
+	Consider the property
+	``$p$ holds at all even time steps'' (but possibly also at odd steps).
+	Is this property expressible in LTL?
+\end{exercise}
+
+\begin{solution}
+	This property is not expressible in LTL,
+	but in order to show it, we need to use a more advanced tool (next tutorial).
+\end{solution}
+
+\section*{From LTL to alternating Büchi automata}
+
+We recall the translation from LTL to alternating Büchi automata.
+%
+To this end, we first convert an LTL formula $\varphi$ to negation normal form,
+i.e., we push negations inside until they only occur in front of propositional variables.
+%
+To achieve this, we introduce the De Morgan dual of the until operator, which is called the \emph{release} operator:
+%
+\begin{align*}
+	\varphi \Release \psi &= \neg (\neg \varphi \U \neg \psi).
+\end{align*}
+%
+Note that $\G \varphi$ is equivalent to $\false \Release \varphi$.
+
+We will use the following fixpoint expansions of the until and release operators:
+%
+\begin{align*}
+	\varphi \U \psi &= \psi \vee (\varphi \wedge \X (\varphi \U \psi)), \\
+	\varphi \Release \psi &= \psi \wedge (\varphi \vee \X (\varphi \Release \psi)).
+\end{align*}
+
+Given an LTL formula $\varphi$ in negation normal form,
+we construct an alternating Büchi automaton
+$A = \tuple{\Sigma, Q, q_0, F, \delta}$ as follows.
+%
+States of the automaton $Q$ are the subformulas of $\varphi$,
+to which we add $\true$ and $\false$.
+%
+The initial state is $q_0 = \set \varphi$
+and the set of accepting states $F$ contains all the release formulas and $\true$.
+%
+The transition function is defined by induction
+on the structure of states $\psi \in Q$.
+%
+The cases for propositional variables and positive Boolean connectives are straightforward:
+%
+\begin{align*}
+	\delta(\true, a) &= \true, \\
+	\delta(\false, a) &= \false, \\
+	\delta(p, a) &= \true \text{ if } p \in a, \text{ and } \false \text{ otherwise}, \\
+	\delta(\neg p, a) &= \true \text{ if } p \not\in a, \text{ and } \false \text{ otherwise}, \\
+	\delta(\psi \wedge \chi, a) &= \delta(\psi, a) \wedge \delta(\chi, a), \\
+	\delta(\psi \vee \chi, a) &= \delta(\psi, a) \vee \delta(\chi, a).
+\end{align*}
+%
+The most interesting cases are those for the temporal operators.
+%
+\begin{align*}
+	\delta(\X \psi, a)
+		&= \psi, \\
+	\delta(\psi \U \chi, a)
+		&= \delta(\chi, a) \vee (\delta(\psi, a) \wedge \psi \U \chi), \\
+	\delta(\psi \Release \chi, a)
+		&= \delta(\chi, a) \wedge (\delta(\psi, a) \vee \psi \Release \chi).
+\end{align*}
+%
+For until and release we have applied the transition function $\delta(\cdot, a)$
+to the fixpoint expansions given above.
+
+\begin{exercise}
+	Apply the translation above
+	to construct an alternating Büchi automaton
+	for the LTL formula $\G \F p$.
+\end{exercise}
+
+\begin{exercise}
+	Using the automaton above, how can we construct an automaton for $\G \F p \wedge \G \F q$?
+\end{exercise}
+
+\end{document}

@@ -1,0 +1,59 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{pdfsync}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathabx}
+\usepackage{hyperref}
+\usepackage{bbold}
+\usepackage[textwidth=2cm,textsize=small]{todonotes}
+\usepackage{subcaption}
+\usepackage{enumerate}
+\usepackage{xspace}
+\usepackage{stmaryrd}
+\usepackage{verbatim}
+
+\author{}
+
+\newcommand{\ignore}[1]{}
+
+\newcommand{\sep}{\;|\;}
+\renewcommand{\rule}[2]{\dfrac{#1}{#2}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\tuple}[1]{\left\langle #1 \right\rangle}
+\newcommand{\pair}[2]{\tuple {#1, #2}}
+\newcommand{\closure}[3]{\tuple {#1, #2, #3}}
+\newcommand{\sem}[1]{\llbracket{#1}\rrbracket}
+\newcommand{\powerset}[1]{\mathcal P(#1)}
+\newcommand{\map}[2]{\mathsf{map}\; #1\; #2}
+\newcommand{\filter}[2]{\mathsf{filter}\; #1\; #2}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+
+% LTL
+\newcommand{\true}{\mathbf{true}}
+\newcommand{\false}{\mathbf{false}}
+\newcommand{\X}{\mathbf X}
+\newcommand{\U}{\mathbf U}
+\newcommand{\Release}{\mathbf R}
+\newcommand{\F}{\mathbf F}
+\newcommand{\G}{\mathbf G}
+
+\newtheorem{exercise}{Exercise}
+
+\newenvironment{solution}{\begin{proof}[\protect{\textnormal{\emph{Solution.}}}]}{\end{proof}}
+
+\let\oldqedhere\qedhere
+
+\newif\ifstartedinmathmode
+\renewcommand*{\qedhere}{%
+  \relax\ifmmode\startedinmathmodetrue\else\startedinmathmodefalse\fi%
+  \ifstartedinmathmode\tag*{\protect\oldqedhere}\else\ifinlist{\hfill\oldqedhere}{\oldqedhere}\fi%
+}
