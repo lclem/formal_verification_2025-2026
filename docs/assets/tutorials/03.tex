@@ -1,0 +1,299 @@
+% !TEX root = 03.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 03}
+\date{09/03/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Alternating Büchi automata}
+
+\begin{exercise}
+	Fix the alphabet $\Sigma = \set{a, b}$.
+	%
+	Consider the following ABA $A$ recognising all words containing infinitely many $a$'s and infinitely many $b$'s:
+	$A = (Q, \Sigma, q_0, \delta, F)$, where
+	%
+	\begin{align*}
+		Q &= \set{p_0, p_a, p_b, p_a', p_b'}, \\
+		F &= \set{p_a', p_b'}, \\
+		\delta(p_0, x) &= p_x \wedge p_0, \text{ for } x \in \set{a, b}, \\
+		\delta(p_a, a) &= p_a', \\
+		\delta(p_a, b) &= p_a, \\
+		\delta(p_a', a) &= \delta(p_a', b) = p_a, \\
+	\end{align*}
+	%
+	The transitions for $p_b$ and $p_b'$ are similar.
+	Use the breakpoint construction of Miyano and Hayashi to construct an equivalent non-deterministic Büchi automaton.
+\end{exercise}
+
+In the next exercise, we investigate the conciseness of alternating Büchi automata compared to non-deterministic ones,
+and thus the inherent cost of the breakpoint construction.
+%
+\begin{exercise}
+	\label{ex:ABA conciseness}
+	For every $k \in \N$, construct an alternating Büchi automaton $A_k$ with $O(k)$ states
+	s.t.~every language equivalent non-deterministic Büchi automaton has at least $2^k$ states.
+\end{exercise}
+%
+\begin{solution}
+	Let $\Sigma = \set{a, b}$.
+	For instance, let $L_k$ the set of words $w \in \Sigma^\omega$
+	of the form $w = u^\omega$ for some $u \in \Sigma^k$.
+	%
+	It is easy to construct an ABA $A_k$ for $L_k$ with $O(k)$ states.
+	Moreover, every equivalent NBA $B$ needs at least $2^k$ states,
+	since (intuitively) it needs to keep track of the last $k$ letters read.
+	%
+	Formally, if $B$ had $< 2^k$ states, then there are two \emph{distinct} words $u, v \in \Sigma^k$
+	such that $B$ reaches the same state after reading $u$ and $v$.
+	%
+	Then $B$ would accept $uv^\omega$, which is not in $L_k$.
+\end{solution}
+
+\section*{Linear temporal logic}
+
+\begin{exercise}
+	For every $k \in \N$, construct a formula of LTL $\varphi_k$ of size $O(k)$
+	s.t.~every equivalent non-deterministic Büchi automaton has at least $2^k$ states.
+\end{exercise}
+\begin{solution}
+	Let $P = \set p$.
+	%
+	For every $k \in \N$, let $\varphi_k$ be the LTL formula
+	$\varphi_k = G ((p \to X^k p) \wedge (\neg p \to X^k \neg p))$.
+	%
+	Then models of $\varphi_k$ are precisely the words $w \in (2^P)^\omega$
+	s.t.~$w = u^\omega$ for some $u \in (2^P)^k$.
+	%
+	The same argument as in~\cref{ex:ABA conciseness}
+	shows that every NBA equivalent to $\varphi_k$ has at least $2^k$ states.
+\end{solution}
+
+\begin{exercise}[\protect{\cite[Ch.~2, Lemma~6]{HanbookModelChecking:2018}}]
+	Let $P = \set p$.
+	Consider the property ``$p$ holds only at even time steps''.
+	Show that this property is not expressible in LTL.
+\end{exercise}
+
+\begin{solution}
+	For every $i \in \N$, let $w_i$ be the infinite word over $2^{\set p} = \set {\emptyset, \set p}$
+	where $p$ holds precisely at time $i$, and nowhere else:
+	%
+	\begin{align*}
+		w_i = \emptyset \cdots \emptyset \set p \emptyset \emptyset \cdots
+	\end{align*}
+	%
+	The intuition is that a fixed LTL formula cannot distinguish between $w_i$ and $w_{i+1}$,
+	for sufficiently large $i$.
+	%
+	For an LTL formula $\varphi$, let $X(\varphi)$ be the number of $\X$ operators in $\varphi$.
+	We show that for every formula $\varphi$,
+	%
+	\begin{align}
+		\label{eq:claim}
+		\forall i > X(\varphi): \quad
+		w_i \models \varphi
+			\quad \text{iff} \quad
+				w_{i+1} \models \varphi.
+	\end{align}
+	%
+	We proceed by structural induction on $\varphi$.
+	%
+	\begin{enumerate}
+		\item If $\varphi = p$, then $X(\varphi) = 0$ and the claim clearly holds
+		since both $w_i$ and $w_{i+1}$ do not satisfy $p$ when $i > 0$.
+		%
+		\item Let $\varphi = \psi_0 \land \psi_1$.
+		Let $i > X(\varphi)$.
+		%
+		Note that $X(\varphi) = X(\psi_0) + X(\psi_1)$,
+		and thus $i > X(\varphi) \geq X(\psi_0), X(\psi_1)$.
+		%
+		The claim follows imediately from the LTL semantics
+		and the induction hypothesis for $\psi_0$ and $\psi_1$:
+		%
+		\begin{align*}
+			w_i \models \varphi
+				&\quad\text{iff}\quad w_i \models \psi_0 \text{ and } w_i \models \psi_1 \\
+				&\quad\text{iff}\quad w_{i+1} \models \psi_0 \text{ and } w_{i+1} \models \psi_1 \\
+				&\quad\text{iff}\quad w_{i+1} \models \varphi.
+		\end{align*}
+		%
+		\item The case $\varphi = \neg \psi$ is similar.
+		%
+		\item Let $\varphi = \X \psi$ and assume $i > X(\varphi)$.
+		Note that $X(\varphi) = 1 + X(\psi)$.
+		We then have $i - 1 > X(\psi)$, and thus
+		%
+		\begin{align*}
+			w_i \models \varphi
+				&\quad\text{iff}\quad w_{i-1} \models \psi \\
+				&\quad\text{iff}\quad w_i \models \psi \\
+				&\quad\text{iff}\quad w_{i+1} \models \varphi.
+		\end{align*}
+		%
+		\item Finally, consider the case $\varphi = \psi_0 \U \psi_1$.
+		By the semantics of until, we have the following two equivalences:
+		%
+		\begin{align}
+			\label{eq:1}
+			w_i \models \varphi
+				&\quad\text{iff}\quad
+					w_i \models \psi_1 \text{ or } (w_i \models \psi_0 \text{ and } w_{i-1} \models \varphi), \text{ and} \\
+			\label{eq:2}
+			w_{i+1} \models \varphi
+				&\quad\text{iff}\quad
+					w_{i+1} \models \psi_1 \text{ or } (w_{i+1} \models \psi_0 \text{ and } w_i \models \varphi).
+		\end{align}
+		%
+		Now assume $w_i \models \varphi$.
+		By~\cref{eq:1}, if $w_i \models \psi_1$, then $w_{i+1} \models \psi_1$ by the induction hypothesis,
+		and thus $w_{i+1} \models \varphi$ by~\cref{eq:2}.
+		%
+		Otherwise, we have $w_i \models \psi_0$, thus $w_{i+1} \models \psi_0$ by the induction hypothesis,
+		which together with $w_i \models \varphi$ by~\cref{eq:2} gives $w_{i+1} \models \varphi$, as required.
+
+		Viceversa, assume $w_{i+1} \models \varphi$.
+		By~\cref{eq:2}, if $w_{i+1} \models \psi_1$, then $w_i \models \psi_1$ by the induction hypothesis,
+		and thus $w_i \models \varphi$ by~\cref{eq:1}.
+		%
+		Otherwise, by~\cref{eq:2} we directly have $w_i \models \varphi$, as required.
+		\qedhere
+	\end{enumerate}
+\end{solution}
+
+Let $X$ be a countable set of first-order variables.
+Formulas of first-order logic (FO) over the structure $\tuple {\N, \leq, p_1, \dots, p_n}$
+are constructed as follows:
+%
+\begin{align*}
+	\varphi, \psi ::=
+		p_i(x) \mid x \leq y \mid
+		\neg \varphi \mid \varphi \land \psi \mid \varphi \lor \psi \mid
+		\exists x. \varphi \mid \forall x. \varphi,
+\end{align*}
+%
+where $x, y \in X$.
+
+\begin{exercise}
+	Show that for every LTL formula $\varphi$
+	there is an FO formula $\psi(x)$ of one free variable $x$,
+	which is equivalent to $\varphi$ in the following sense:
+	%
+	For every infinite word $w$ and time step $i$,
+	%
+	\begin{align}
+		\label{eq:equivalence}
+		w, [x \mapsto i] \models \psi(x)
+			\quad\text{iff}\quad
+				w[i] \models \varphi.
+	\end{align}
+	%
+	(Recall that for $w = a_0 a_1 \cdots$ and $i \in \N$,
+	we write $w[i]$ for the suffix of $w = a_i a_{i+1} \cdots$ starting at position $i$.)
+	How many FO variable names do you need to construct $\psi$?
+\end{exercise}
+
+\begin{solution}
+	Define a function $[\_]$ mapping an LTL formula $\varphi$
+	to an equivalent (in the sense of~\cref{eq:equivalence}) FO formula $[\varphi](x)$
+	with one free variable $x$.
+	%
+	We proceed by structural induction on $\varphi$.
+	%
+	\begin{align*}
+		[p_i](x) &= p_i(x), \\
+		[\neg \varphi](x) &= \neg [\varphi](x), \\
+		[\varphi \land \psi](x) &= [\varphi](x) \land [\psi](x), \\
+		[\varphi \lor \psi](x) &= [\varphi](x) \lor [\psi](x), \\
+		[\X \varphi](x) &= \exists y. (y = x + 1) \land [\varphi](y), \\
+		[\varphi \U \psi](x) &= \exists y. (y \geq x) \land [\psi](y) \land
+			\forall z. x \leq z < y \to [\varphi](z).
+	\end{align*}
+	%
+	We have used $y = x + 1$ as a shorthand for $x < y \land \neg \exists z. (x < z \land z < y)$.
+	We have used three variable names (they can be recycled) when constructing subformulas.
+	This is optimal, since it is known that the until operator requires at least three variables to be expressed in FO.
+\end{solution}
+
+% \section*{Ehrenfeucht-Fraïssé games for LTL}
+
+% \begin{exercise}
+% 	Consider the property
+% 	``$p$ holds at all even time steps'' (but possibly also at odd steps).
+% 	Show that this property is not expressible in LTL.
+% \end{exercise}
+
+% \begin{solution}
+% \end{solution}
+
+\section*{CTL}
+
+\begin{exercise}
+	Show a CTL model checking algorithm of complexity
+	%
+	\begin{align*}
+		O((|S| + |\to|) \cdot |\varphi|),
+	\end{align*}
+	%
+	where $S$ is the set of states and $\to$ the transition relation of the input Kripke structure.
+\end{exercise}
+%
+\begin{solution}
+	Let $s_0 \in S$ be the initial state.
+	We want to decide whether $M, s_0 \models \varphi$.
+	%
+	For $\EF \varphi$, it suffices to check whether $s_0$ can reach a state satisfying $\varphi$,
+	which can be done by a breadth-first search in $O(|S| + |\to|)$ time.
+	%
+	For $\EG \varphi$, we perform a strongly connected component (SCC) decomposition
+	of the transition graph of $M$,	in $O(|S| + |\to|)$ time,
+	and then we check whether $s_0$ can reach a SCC containing only states satisfying $\varphi$.
+	%
+	The cases $\AF \varphi$ and $\AG \varphi$ can be treated by double complementation.
+	%
+	For the more general $\EU \varphi \psi$,
+	first remove all states not satisfying $\varphi$,
+	and then check $\EF \psi$ on the new structure.
+	%
+	Similarly for $\ER \varphi \psi$.
+\end{solution}
+
+\begin{exercise}
+	Show that the CTL model checking problem is P-hard.
+\end{exercise}
+%
+\begin{solution}
+	We reduce from the \emph{monotone circuit value problem} (MCVP), which is known to be P-hard.
+	Formally, given a Boolean circuit $C$ (acyclic DAG) with gates $\land$ and $\lor$, a single output gate,
+	and an assignment in $\set{0, 1}$ for the input gates,
+	the MCVP asks whether the output gate evaluates to $1$.
+	%
+	First, we modify $C$ so that the same connective $\land$ or $\lor$ appears at the same level.
+	Moreover, we assume that the output gate is labelled by $\land$,
+	%
+	This can be achieved by introducing at most $|C|$ dummy gates.
+	%
+	Then, we construct a Kripke structure $K$ which is the same as $C$,
+	but where each gate is a state and the edges are reversed.
+	We have a single proposition $P = \set p$,
+	which holds at input gates evaluating to $1$,
+	and does not hold at any other gate (including input gates evaluating to $0$).
+	%
+	Finally, we construct a CTL formula $\varphi$,
+	%
+	\begin{align*}
+		\AX\; \EX\; \cdots Q\; p,
+	\end{align*}
+	%
+	where the number of modal operators is equal to the depth of $C$.
+	Thus the last operator $Q$ is $\AX$ if the depth is odd, and $\EX$ otherwise.
+\end{solution}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}

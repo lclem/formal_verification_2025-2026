@@ -15,7 +15,7 @@ Recall that linear temporal logic (LTL) formulas over $P$
 are defined by the following (minimalistic) grammar:
 %
 \begin{align*}
-	\varphi, \psi ::= \true \sep \false \sep p \sep \neg \varphi \sep \varphi \wedge \varphi \sep \X \varphi \sep \varphi \U \psi,
+	\varphi, \psi ::= \true \sep \false \sep p \sep \neg \varphi \sep \varphi \wedge \psi \sep \X \varphi \sep \varphi \U \psi,
 \end{align*}
 %
 where $p \in P$.
@@ -89,10 +89,14 @@ Note that $\G \varphi$ is equivalent to $\false \Release \varphi$.
 
 We will use the following fixpoint expansions of the until and release operators:
 %
-\begin{align*}
-	\varphi \U \psi &= \psi \vee (\varphi \wedge \X (\varphi \U \psi)), \\
-	\varphi \Release \psi &= \psi \wedge (\varphi \vee \X (\varphi \Release \psi)).
-\end{align*}
+\begin{align}
+	\label{eq:fixpoint expansions U}
+	\varphi \U \psi
+		&= \psi \vee (\varphi \wedge \X (\varphi \U \psi)), \\
+	\label{eq:fixpoint expansions R}
+	\varphi \Release \psi
+		&= \psi \wedge (\varphi \vee \X (\varphi \Release \psi)).
+\end{align}
 
 Given an LTL formula $\varphi$ in negation normal form,
 we construct an alternating Büchi automaton
@@ -130,7 +134,7 @@ The most interesting cases are those for the temporal operators.
 \end{align*}
 %
 For until and release we have applied the transition function $\delta(\cdot, a)$
-to the fixpoint expansions given above.
+to the fixpoint expansions given above~\cref{eq:fixpoint expansions U,eq:fixpoint expansions R}.
 
 \begin{exercise}
 	Apply the translation above

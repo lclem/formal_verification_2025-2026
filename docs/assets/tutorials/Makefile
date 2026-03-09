@@ -9,8 +9,9 @@ all: $(TUTORIALS)
 $(BUILD):
 	mkdir -p $(BUILD)
 
-$(BUILD)/%.pdf: %.tex common.tex $(BUILD)
+$(BUILD)/%.pdf: %.tex common.tex $(BUILD) Makefile
 	@echo + Making $@ from $<
+	pdflatex -output-directory=$(BUILD) "$(patsubst $(BUILD)/%.pdf,%.tex,$@)"
 	pdflatex -output-directory=$(BUILD) "$(patsubst $(BUILD)/%.pdf,%.tex,$@)"
 
 $(TUTORIALS) : $(BUILD)/%.pdf : %.tex

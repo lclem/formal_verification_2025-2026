@@ -9,7 +9,8 @@ Gemfile.lock
 *.aux
 *.log
 *.out
+*.bbl
 *.pdfsync
-*..synctex.gz
+*.synctex.gz
 
 docs/assets/tutorials/*.pdf

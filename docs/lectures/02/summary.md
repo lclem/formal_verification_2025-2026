@@ -8,8 +8,6 @@ permalink: docs/lectures/02/summary
 - LTL and alternating Büchi automata [[slides](https://docs.google.com/presentation/d/1Rp_C77-y_XkoVdYTa4NG1GYv91paV5duNti5AkMTUE0/edit?usp=sharing){:target="_blank"}]
 	- basic automata constructions
 	- translation of LTL to alternating Büchi automata
-	- translation from alternating Büchi automata to Büchi automata
-
 ## references
 - ["Formal Methods in Industry", 2024](../../../assets/pdf/fmi.pdf)
 - ["On Formal Methods Thinking in Computer Science Education", 2024](../../../assets/pdf/fmt.pdf)
