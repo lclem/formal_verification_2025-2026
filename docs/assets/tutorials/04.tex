@@ -1,0 +1,195 @@
+% !TEX root = 04.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 04}
+\date{16/03/2026}
+
+\begin{document}
+
+\maketitle
+
+\newcommand{\lossyto}{\Rightarrow}
+\section*{Communicating finite-state machines}
+
+Let $S$ be CFSM with (perfect) transition relation $\to$.
+
+\begin{exercise}
+	Show that the reachability problem for CFSMs is undecidable.
+\end{exercise}
+
+\begin{solution}
+	We can simulate the tape of a Turing machine using a single channel.
+	A special symbol is used to mark the position of the head.
+	The head movement are simulated by rotations of the channel contents.
+\end{solution}
+
+We consider a model of CFSM comprising a finite set of processes $P$ (each with a finite set of local states)
+and a finite set of channels $C$.
+%
+Each channel is a FIFO queue of messages connecting two processes (point-to-point communication).
+%
+The \emph{communication topology} of a CFSM is an undirected graph
+where vertices are processes and (undirected) edges are channels.
+
+\begin{exercise}
+	Show that the reachability problem for CFSMs with is decidable \emph{over tree communication topologies}.
+\end{exercise}
+
+\begin{solution}
+	When the communication topology is a tree,
+	bounded channels suffice to reach all reachable configurations.
+	%
+	The idea is that we can always keep the channels to size zero or one,
+	by always executing a transmision immediately followed by the corresponding reception.
+\end{solution}
+
+\section*{Well-quasi orders}
+
+A binary relation $\preceq$ on a set $X$ 
+is \textbf{quasi-order}
+if it is reflexive and transitive.
+An antichain is a subset of $X$ 
+whose elements are pairwise incomparable w.r.t.~$\preceq$.
+
+\begin{exercise}
+    Let $(X, \preceq)$ be a quasi-order. Prove that the following conditions
+    are equivalent.
+    \begin{enumerate}%[label=($\alph*$)]
+        \item[a)] Any infinite sequence $a_1, a_2, \dots$ of elements of $X$
+        contains a \emph{domination} $a_i \preceq a_j$
+        for some indexes $i < j$.
+
+        \item[b)] $X$ does not contain any infinite antichain and is \emph{well-founded}
+        (i.e., there are no infinite strictly decreasing sequences).
+
+        \item[c)] Any infinite sequence $a_1, a_2, \dots$ of elements of $X$
+        contains an infinite nondecreasing subsequence, i.e., there are indices
+        $i_1 < i_2 < \ldots$ with $a_{i_1} \preceq a_{i_2} \preceq \ldots$.
+
+        \item[d)] Every upward closed set is the upward closure of a finite set.
+        (The \emph{upward closure} of a set $X$
+        is the set of elements that dominate some element of $X$;
+        $X$ is \emph{upward closed} if it is equal to its upward closure.)
+
+        \item[e)] Every nondecreasing chain of upward closed sets $U_1 \subseteq U_2 \subseteq \cdots \subseteq X$ is finite.
+
+    \end{enumerate}
+\end{exercise}
+\noindent
+Whenever any of the conditions above holds we call 
+the relation $\preceq$ a \textbf{well quasi-order} or \textbf{WQO}.
+% \begin{solution}
+    % \noindent
+    % ($a \Rightarrow b$) Well-foundedness is obvious.
+    % Now consider an infinite antichain $A \subseteq X$
+    % and arrange its elements into an infinite sequence.
+    % %
+    % By the assumption we can find a domination, contradicting that $A$ is an antichain.
+
+    % \noindent
+    % ($b \Rightarrow a$) Consider the set of minimal elements of the infinite sequence.
+    % This set is nonempty by well-foundedness and it is finite since it is an antichain.
+    % Take any element in the sequence not from this finite set.
+    % It is preceded by a smaller element in the set, yielding a domination.
+
+    % ($a \Rightarrow c$) By way of contradiction,
+    % assume each $x_i$ is the beginning of chains of finite length only.
+    % %
+    % From $x_0$, select one such maximal chain, ending at some $x_{i_0}$.
+    % From $x_{i_0+1}$, select one such maximal chain, ending at some $x_{i_1}$, etc.
+    % %    
+    % We have constructed an infinite subsequence of elements $x_{i_0}, x_{i_1}, \dots$
+    % which are not dominated by \emph{any} element to their right,
+    % leading to a contradiction.
+
+    % \noindent
+    % ($c \Rightarrow a$) This is trivial.
+
+    % \noindent
+    % ($b \Rightarrow d$) Let $U \subseteq X$ be upward closed and consider the subset of its elements $M$
+    % which are not dominated by any element in $U$ (minimal elements).
+    % Since there order is well-founded, $U$ is the upward closure of $M$.
+    % The latter set is an antichain, thus finite by assumption.
+
+    % \noindent
+    % ($d \Rightarrow b$) Clearly antichains must be finite.
+    % Regarding well-foundedness, by way of contradiction assume we have
+    % an infinite strictly decreasing sequence $x_1 \succ x_2 \succ \cdots$.
+    % %
+    % Then the upward closure of its elements is not the upward closure of any finite set,
+    % which is a contradiction.
+
+    % \noindent
+    % ($d \Rightarrow e$) Consider the upward closed set $U_1 \cup U_2 \cup \cdots$.
+    % By assumption, it is the upward closure of finitely many elements $B = \set{x_1, \dots, x_m}$.
+    % Take the first $U_n$ \st~$B \subseteq U_n$ and we have $U_n = U_{n+1} = \cdots$.
+
+    % \noindent
+    % ($e \Rightarrow d$) Let $U \subseteq X$ be an upward closed set and consider the set of its minimal elements
+    % $M = \set{x_1, x_2, \dots}$ (if there are ties just select arbitrarily an element from each minimal equivalence class).
+    % Now consider the chain generated by the upward closure of $\set{x_1}$, $\set{x_1, x_2}$, etc.
+    % By assumption, this chain is finite, therefore there is $n$ \st~the upward closure of $\set{x_1, \dots, x_n}$
+    % is the same as that of $M$ itself, which is just $X$.
+% \end{solution}
+
+\begin{exercise}
+	Show that every upward-closed language of words (w.r.t.~the subword ordering) is regular.
+\end{exercise}
+
+% \begin{solution}
+% \end{solution}
+
+\section*{Lossy channel systems}
+
+Let $S$ be a CFSM with (perfect) transition relation $\to$
+and lossy transition relation $\lossyto$.
+%
+Recall that $c \lossyto d$ if there are configurations $c', d' \in \Conf$ such that
+$c' \sqsubseteq c$, $c' \to d'$, and $d \sqsubseteq d'$.
+%
+Consider the following predecessor operators:
+%
+\begin{align*}
+	\PreRel \to T
+		&:= \setof {c \in \Conf}{\exists c' \in T, c \to c'}, \\
+	\Pre T
+		&:= \setof {c \in \Conf}{\exists c' \in T, c \Rightarrow c'},
+\end{align*}
+%
+Notice that $\Pre T$ can be infinite even when $T$ only contains a single configuration.
+%
+\begin{exercise}
+	Let $T$ be a regular set of configurations.
+	Show that the following sets are effectively regular:
+	\begin{itemize}
+		\item $\PreRel \to T$,
+		\item $\upwardclosure T$,
+		\item $\Pre T$,
+		\item $\PreStar T$.
+	\end{itemize}
+\end{exercise}
+
+\begin{solution}
+	The set $\PreRel \to T$ can be obtained from $T$ by regularity-preserving operations
+	such as finite unions, concatenations, and right language quotients.
+	%
+	From a finite automaton recognising $T$,
+	we can construct a finite automaton recognising $\upwardclosure T$ by adding
+	self-loops on all states for all symbols.
+	%
+	Straight from the definitions, we have
+	\begin{align*}
+		\Pre T = \upwardclosure{\PreRel \to {\upwardclosure T}}. \qedhere
+	\end{align*}
+\end{solution}
+
+\begin{exercise}
+	Show that the forward reachability set for lossy channel systems is regular.
+	Can one \emph{compute} a finite automaton recognising it?
+\end{exercise}
+
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}

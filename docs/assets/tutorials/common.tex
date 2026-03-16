@@ -32,6 +32,7 @@
 \newcommand{\sep}{\;|\;}
 \renewcommand{\rule}[2]{\dfrac{#1}{#2}}
 \newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setof}[2]{\set{#1 \;\middle|\; #2}}
 \newcommand{\tuple}[1]{\left( #1 \right)}
 \newcommand{\pair}[2]{\tuple {#1, #2}}
 \newcommand{\closure}[3]{\tuple {#1, #2, #3}}
@@ -40,6 +41,13 @@
 \newcommand{\map}[2]{\mathsf{map}\; #1\; #2}
 \newcommand{\filter}[2]{\mathsf{filter}\; #1\; #2}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\PreRel}[2]{\mathsf{Pre}_{#1}(#2)}
+\newcommand{\Pre}[1]{\PreRel {} {#1}}
+\newcommand{\PreStar}[1]{\mathsf{Pre}^*(#1)}
+\newcommand{\Post}[1]{\mathsf{Post}(#1)}
+\newcommand{\PostStar}[1]{\mathsf{Post^*}(#1)}
+\newcommand{\Conf}{\mathsf{Conf}}
+\newcommand{\upwardclosure}[1]{#1\uparrow}
 
 \newcommand{\N}{\mathbb N}
 \newcommand{\Z}{\mathbb Z}
