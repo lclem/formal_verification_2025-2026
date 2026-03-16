@@ -28,11 +28,43 @@ and a finite set of channels $C$.
 %
 Each channel is a FIFO queue of messages connecting two processes (point-to-point communication).
 %
-The \emph{communication topology} of a CFSM is an undirected graph
+The \emph{communication topology} of a CFSM is an undirected multigraph
 where vertices are processes and (undirected) edges are channels.
 
 \begin{exercise}
-	Show that the reachability problem for CFSMs with is decidable \emph{over tree communication topologies}.
+	Show that the reachability problem for CFSMs is undecidable when
+    %
+    \begin{enumerate}
+        \item there are two processes $P$ and $Q$ and two channels $C = \set {c, d}$,
+        where $c$ connects $P$ to $Q$ and $d$ connects $Q$ to $P$ (i.e., the communication topology is a cycle of length two);
+        \item there are two processes $P$ and $Q$ and two ``parallel'' channels $C = \set {c, d}$
+        both connecting $P$ to $Q$ (i.e., the communication topology is a multigraph with two parallel edges).
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    1.~We show how to simulate a single channel $e$ (where the same process can send and receive)
+    by the two channels $c, d$.
+    Transmissions on $e$ are simulated by transmissions on $c$.
+    Receptions on $e$ are simulated by receptions on $d$.
+    Both these are taken care by process $P$.
+    Process $Q$, which is fixed, just forwards messages from $c$ to $d$.
+
+    2.~We reduce from the \emph{Post correspondence problem} (PCP), which is an undecidable problem.
+    %
+    An instance of this problem is given by a finite sequence of pairs of words
+    $\tuple{u_1, v_1}, \dots, \tuple{u_n, v_n}$ over some alphabet $\Sigma$
+    and asks whether there is a sequence of indices $i_1, \dots, i_k$ such that
+    $u_{i_1} \cdots u_{i_k} = v_{i_1} \cdots v_{i_k}$.
+    %
+    Process $P$ guesses a sequence of indices $i_1, \dots, i_k$
+    and sends $u_{i_1}, \dots, u_{i_k}$ on channel $c$
+    and $v_{i_1}, \dots, v_{i_k}$ on channel $d$.
+    %
+    Process $Q$ receives messages from both channels and checks that they are the same.
+\end{solution}
+
+\begin{exercise}
+	Show that the reachability problem for CFSMs is decidable \emph{over tree communication topologies}.
 \end{exercise}
 
 \begin{solution}
@@ -41,6 +73,18 @@ where vertices are processes and (undirected) edges are channels.
 	%
 	The idea is that we can always keep the channels to size zero or one,
 	by always executing a transmision immediately followed by the corresponding reception.
+
+    Another idea, is as follows.
+    We assume w.l.o.g~that the channel alphabets are disjoint.
+    For the leaf processes, we can compute the regular language of messages they can send or receive (but not both).
+    %
+    Inductively, consider an internal process $p$ connected to child processes $p_1, \dots, p_k$.
+    For each we have inductively computed the regular languages $L_1 \subseteq M_1^*, \dots, L_k \subseteq M_k^*$ of channel actions.
+    We compute the regular language $L \subseteq M$ of channel actions of $p$ to its parent process.
+    %
+    Let $L'$ be the shuffle of languages $L_1, \dots, L_k$ and $M^*$.
+    Then $L$ is the projection to $M^*$
+    of the language of all channel actions of $p$ intersected with $L'$.
 \end{solution}
 
 \section*{Well-quasi orders}
@@ -52,88 +96,51 @@ An antichain is a subset of $X$
 whose elements are pairwise incomparable w.r.t.~$\preceq$.
 
 \begin{exercise}
-    Let $(X, \preceq)$ be a quasi-order. Prove that the following conditions
-    are equivalent.
+    Let $(X, \preceq)$ be a quasi-order.
+    Prove that the following conditions are equivalent.
     \begin{enumerate}%[label=($\alph*$)]
-        \item[a)] Any infinite sequence $a_1, a_2, \dots$ of elements of $X$
+        \item[(a)] Any infinite sequence $a_1, a_2, \dots$ of elements of $X$
         contains a \emph{domination} $a_i \preceq a_j$
         for some indexes $i < j$.
 
-        \item[b)] $X$ does not contain any infinite antichain and is \emph{well-founded}
+        \item[(b)] $X$ does not contain any infinite antichain and is \emph{well-founded}
         (i.e., there are no infinite strictly decreasing sequences).
 
-        \item[c)] Any infinite sequence $a_1, a_2, \dots$ of elements of $X$
+        \item[(c)] Any infinite sequence $a_1, a_2, \dots$ of elements of $X$
         contains an infinite nondecreasing subsequence, i.e., there are indices
         $i_1 < i_2 < \ldots$ with $a_{i_1} \preceq a_{i_2} \preceq \ldots$.
 
-        \item[d)] Every upward closed set is the upward closure of a finite set.
+        \item[(d)] Every upward closed set is the upward closure of a finite set.
         (The \emph{upward closure} of a set $X$
         is the set of elements that dominate some element of $X$;
         $X$ is \emph{upward closed} if it is equal to its upward closure.)
 
-        \item[e)] Every nondecreasing chain of upward closed sets $U_1 \subseteq U_2 \subseteq \cdots \subseteq X$ is finite.
-
+        \item[(e)] Every nondecreasing chain of upward closed sets $U_1 \subseteq U_2 \subseteq \cdots \subseteq X$ is finite.
     \end{enumerate}
 \end{exercise}
 \noindent
 Whenever any of the conditions above holds we call 
 the relation $\preceq$ a \textbf{well quasi-order} or \textbf{WQO}.
-% \begin{solution}
-    % \noindent
-    % ($a \Rightarrow b$) Well-foundedness is obvious.
-    % Now consider an infinite antichain $A \subseteq X$
-    % and arrange its elements into an infinite sequence.
-    % %
-    % By the assumption we can find a domination, contradicting that $A$ is an antichain.
-
-    % \noindent
-    % ($b \Rightarrow a$) Consider the set of minimal elements of the infinite sequence.
-    % This set is nonempty by well-foundedness and it is finite since it is an antichain.
-    % Take any element in the sequence not from this finite set.
-    % It is preceded by a smaller element in the set, yielding a domination.
-
-    % ($a \Rightarrow c$) By way of contradiction,
-    % assume each $x_i$ is the beginning of chains of finite length only.
-    % %
-    % From $x_0$, select one such maximal chain, ending at some $x_{i_0}$.
-    % From $x_{i_0+1}$, select one such maximal chain, ending at some $x_{i_1}$, etc.
-    % %    
-    % We have constructed an infinite subsequence of elements $x_{i_0}, x_{i_1}, \dots$
-    % which are not dominated by \emph{any} element to their right,
-    % leading to a contradiction.
-
-    % \noindent
-    % ($c \Rightarrow a$) This is trivial.
-
-    % \noindent
-    % ($b \Rightarrow d$) Let $U \subseteq X$ be upward closed and consider the subset of its elements $M$
-    % which are not dominated by any element in $U$ (minimal elements).
-    % Since there order is well-founded, $U$ is the upward closure of $M$.
-    % The latter set is an antichain, thus finite by assumption.
-
-    % \noindent
-    % ($d \Rightarrow b$) Clearly antichains must be finite.
-    % Regarding well-foundedness, by way of contradiction assume we have
-    % an infinite strictly decreasing sequence $x_1 \succ x_2 \succ \cdots$.
-    % %
-    % Then the upward closure of its elements is not the upward closure of any finite set,
-    % which is a contradiction.
-
-    % \noindent
-    % ($d \Rightarrow e$) Consider the upward closed set $U_1 \cup U_2 \cup \cdots$.
-    % By assumption, it is the upward closure of finitely many elements $B = \set{x_1, \dots, x_m}$.
-    % Take the first $U_n$ \st~$B \subseteq U_n$ and we have $U_n = U_{n+1} = \cdots$.
-
-    % \noindent
-    % ($e \Rightarrow d$) Let $U \subseteq X$ be an upward closed set and consider the set of its minimal elements
-    % $M = \set{x_1, x_2, \dots}$ (if there are ties just select arbitrarily an element from each minimal equivalence class).
-    % Now consider the chain generated by the upward closure of $\set{x_1}$, $\set{x_1, x_2}$, etc.
-    % By assumption, this chain is finite, therefore there is $n$ \st~the upward closure of $\set{x_1, \dots, x_n}$
-    % is the same as that of $M$ itself, which is just $X$.
-% \end{solution}
+%
+\begin{solution}
+    We show the implication from (b) to (c) using the infinite Ramsey theorem.
+    Consider an infinite sequence $a_1, a_2, \dots$ of elements of $X$.
+    We colour the edges of the complete undirected graph on $\set{a_1, a_2, \dots}$
+    with three colours $\set{A, B, C}$: we colour the edge $\set{a_i, a_j}$ with $i < j$
+    with $A$ if $a_i \preceq a_j$,
+    with $B$ if $a_i \succ a_j$,
+    and with $C$ if $a_i$ and $a_j$ are incomparable.
+    %
+    By the infinite Ramsey theorem, there is an infinite monochromatic clique,
+    that is a subsequence $a_{i_1}, a_{i_2}, \dots$ such that all edges $\set{a_{i_j}, a_{i_k}}$ with $j < k$ have the same colour.
+    By assumption (b), this color cannot be $B$,
+    since otherwise we would have an infinite strictly decreasing sequence.
+    It cannot be $C$ either, since otherwise we would have an infinite antichain.
+    Hence, the color is $A$ and we have an infinite nondecreasing subsequence, as required.
+\end{solution}
 
 \begin{exercise}
-	Show that every upward-closed language of words (w.r.t.~the subword ordering) is regular.
+	Show that every downward-closed language of words (w.r.t.~the subword ordering) is regular.
 \end{exercise}
 
 % \begin{solution}
@@ -182,12 +189,6 @@ Notice that $\Pre T$ can be infinite even when $T$ only contains a single config
 		\Pre T = \upwardclosure{\PreRel \to {\upwardclosure T}}. \qedhere
 	\end{align*}
 \end{solution}
-
-\begin{exercise}
-	Show that the forward reachability set for lossy channel systems is regular.
-	Can one \emph{compute} a finite automaton recognising it?
-\end{exercise}
-
 
 \bibliographystyle{plainurl}
 \bibliography{bibliography}
