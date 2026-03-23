@@ -16,5 +16,6 @@ $(BUILD)/%.pdf: %.tex common.tex $(BUILD) Makefile
 
 $(TUTORIALS) : $(BUILD)/%.pdf : %.tex
 
+# rm -fr $(BUILD)
 clean:
-	rm -fr $(BUILD)
+	rm -fr *.aux *.log *.out *.pdf *.synctex.gz *.pdfsync

@@ -1,0 +1,171 @@
+% !TEX root = 05.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 05}
+\date{23/03/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Simplifying transitions}
+
+\begin{exercise}
+    Consider a nondeterministic finite automaton $A$.
+    %
+    Let $\sqsubseteq$ be any underapproximation of the language inclusion preorder:
+    $p \sqsubseteq q$ implies $\lang p \subseteq \lang q$.
+    %
+    Can we use $\sqsubseteq$ to simplify the transition structure of the automaton?
+\end{exercise}
+\begin{solution}
+    For each state $p \in Q$ and input symbol $a \in \Sigma$,
+    it suffices to consider only transitions $p \goesto a q$ where $q$ is $\sqsubseteq$-maximal.
+\end{solution}
+
+\section*{Simulation relations}
+
+\begin{exercise}
+    Fix an automaton $A$.
+    Show that
+    \begin{enumerate}
+        \item The identity relation $\{(p, p) \mid p \in Q\}$ is a simulation.
+        \item The union of an arbitrary family of simulations is a simulation.
+        \item The composition of two simulations is a simulation.
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    The first point is trivial.
+    For the second point, let $\set{R_i}_{i \in I}$ be a family of simulations
+    and consider their union $R = \bigcup_{i \in I} R_i$.
+    %
+    We show that $R$ is a simulation.
+    Let $\tuple {p, q} \in R$ and $p \goesto a p'$.
+    By definition of $R$, there exists $i \in I$ such that $\tuple {p, q} \in R_i$.
+    Since $R_i$ is a simulation, there exists $q'$ such that $q \goesto a q'$ and $\tuple {p', q'} \in R_i$.
+    Since $R_i \subseteq R$, we have $\tuple {p', q'} \in R$, as required.
+    %
+    For the third point, let $R$ and $S$ be two simulations and consider their composition $R \circ S$.
+    We show that $R \circ S$ is a simulation.
+    Let $\tuple {p, q} \in R \circ S$ and $p \goesto a p'$.
+    By definition of composition, there exists $r$ such that $\tuple {p, r} \in R$ and $\tuple {r, q} \in S$.
+    Since $R$ is a simulation, there exists $r'$ such that $r \goesto a r'$ and $\tuple {p', r'} \in R$.
+    Since $S$ is a simulation, there exists $q'$ such that $q \goesto a q'$ and $\tuple {r', q'} \in S$.
+    Since $\tuple {p', r'} \in R$ and $\tuple {r', q'} \in S$, we have $\tuple {p', q'} \in R \circ S$, as required.
+\end{solution}
+
+\begin{exercise}
+    Fix an automaton $A$.
+    Let $\preceq$ be the union of all simulations on $A$.
+    \begin{enumerate}
+        \item Show that $\preceq$ is a simulation.
+        \item Show that $\preceq$ is a preorder.
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+    Let $A$ be a total deterministic automaton.
+    Show that the language inclusion preorder on $A$ coincides with the simulation preorder $\preceq$.
+\end{exercise}
+\begin{solution}
+    It suffices to show that language inclusion is a simulation.
+    Consider a pair of states $\tuple {p, q}$ such that $\lang p \subseteq \lang q$.
+    Consider a transition $p \goesto a p'$.
+    Since the automaton is total and deterministic,
+    there exists a unique transition $q \goesto a q'$ from $q$ on input $a$.
+    %
+    Let $w \in \lang {p'}$.
+    Then, $aw \in \lang p$ and thus $aw \in \lang q$ by the assumption.
+    Since the automaton is deterministic, $w \in \lang {q'}$, as required.
+\end{solution}
+
+\begin{exercise}
+    Show an example of an automaton $A$ s.t.~simulation preorder $\preceq$
+    is \emph{strictly included} in the language inclusion preorder.
+\end{exercise}
+\begin{solution}
+    By the previous exercise we know that $A$ must be nondeterministic.
+    Consider the automaton $A$ with states $p, q, r$ and $p', q_b, q_c, r$.
+    State $r$ is accepting.
+    There are transitions $p \goesto a q \goesto {b, c} r$
+    and $p' \goesto a q_b$, $p' \goesto a q_c$, $q_b \goesto b r$, $q_c \goesto c r$.
+    %
+    Clearly $\lang p = \lang {p'} = \set{ab, ab}$
+    however $p'$ does not simulate $p$.
+\end{solution}
+
+\begin{exercise}
+    Let $A$ be a nondeterministic finite automaton with states $Q$
+    and consider its (deterministic) powerset automaton $B$ with states $\powerset Q$.
+    %
+    Consider the state-inclusion preorder $\subseteq$ on the states of $B$.
+    %
+    \begin{enumerate}
+        \item Show that $\subseteq$ is a simulation on $B$.
+        \item Does $\subseteq$ coincide with the simulation preorder on $B$?
+        \item Is there a way to \emph{lift} simulation preorder on $A$
+        to a simulation relation on $B$ coarser than the state-inclusion preorder $\subseteq$?
+    \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+    The first point follows directly from the definition of the powerset automaton.
+    For the second point, we provide an example that simulation preorder on $B$ can be strictly coarser than $\subseteq$.
+    In fact, it suffices to consider a deterministic automaton $A$ ($= B$)
+    and two distinct states $p$ and $q$ s.t.~$q$ simulates $p$.
+    For the third point, one can consider a binary relation on powerset states $p, q \subseteq Q$
+    defined as $p \preceq q$ iff for all $p' \in p$ there exists $q' \in q$ such that $p' \sqsubseteq q'$ in the simulation preorder on $A$.
+\end{solution}
+
+\begin{exercise}
+    Fix a nondeterministic finite automaton $A$ with states $Q$
+    and consider the following operator $T$ on binary relations on $Q$:
+    For a binary relation $R \subseteq Q \times Q$,
+    we have $\tuple {p, q} \in T(R)$ iff
+    %
+    \begin{enumerate}
+        \item[(a)] $p \in F$ implies $q \in F$, and
+        \item[(b)] For all transitions $p \goesto a p'$,
+        there exists a transition $q \goesto a q'$ s.t.~$\tuple {p', q'} \in R$.
+    \end{enumerate}
+    %
+    \begin{enumerate}
+        \item Show that the operator $T$ is monotone w.r.t.~set inclusion.
+        \item Show that $R$ is a simulation iff $R$ is a \emph{post-fixpoint} of $T$,
+        i.e., $R \subseteq T(R)$.
+        \item Show that simulation preorder $\preceq$ is the greatest (post-)fixpoint of $T$.
+        \item Use the previous points to design an algorithm to compute the simulation preorder on $A$.
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    The first point is straightforward.
+    The second point follows directly from the definition of simulation.
+    THe third point follows from fixed point theory.
+    This leads us to the last point.
+    We design a Kleene iteration scheme to compute the greatest fixpoint of $T$.
+    For every $n \in \N$, let $R_n := T^n(Q \times Q)$.
+    For instance, we have $R_0 = Q \times Q$ and $R_1 = F \times F \cup (Q \setminus F) \times Q$.
+    By monotonicity of $T$, we have a nonincreasing chain $R_0 \supseteq R_1 \supseteq R_2 \supseteq \cdots$.
+    Then $\preceq = \bigcap_{n \in \N} R_n$ is the greatest fixpoint of $T$ and thus the simulation preorder on $A$.
+    The computation terminates since $R_n = R_{n+1} = \cdots$ for some $n \leq \card{Q}^2$.
+\end{solution}
+
+\section*{Bisimulation relations}
+
+\begin{exercise}
+    Show an example of an automaton $A$ and a pair of states $p, q$
+    such that $p$ simulates $q$ and $q$ simulates $p$ but $p$ and $q$ are not bisimilar.
+\end{exercise}
+\begin{solution}
+    The crucial point is that for $R$ to be a bisimulation
+    it needs to be the case that both $R$ and its inverse $R^{-1}$ are simulations.
+    However, two states $p$ and $q$ can simulate each other via two \emph{different} simulations $R$ and $S$.
+\end{solution}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}
