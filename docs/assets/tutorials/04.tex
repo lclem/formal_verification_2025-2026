@@ -139,6 +139,45 @@ the relation $\preceq$ a \textbf{well quasi-order} or \textbf{WQO}.
     Hence, the color is $A$ and we have an infinite nondecreasing subsequence, as required.
 \end{solution}
 
+\begin{exercise}[Higman's lemma]
+    Let $\tuple{X, \preceq}$ be a WQO
+    and consider the \emph{subword order} (a.k.a.~\emph{scattered subsequence order})
+    on words ${\preceq^*} \subseteq X^* \times X^*$.
+    %
+    In other terms, $u \preceq^* v$ if $u$ can be obtained from $v$
+    by deleting some letters and replacing the remaining letters with smaller ones.
+    %
+    Prove that $\tuple{X^*, \preceq^*}$ is a WQO.
+\end{exercise}
+\begin{solution}
+    Call a sequence $u_0, u_1, \dots$ \emph{bad} if there is no domination $u_i \preceq^* u_j$ with $i < j$.
+    By way of contradiction, assume we have a bad sequence as above.
+    %
+    We can also assume that the sequence is minimal
+    in the sense that the sequence of lengths $\tuple{\card {u_0}, \card {u_1}, \dots}$
+    is minimal for the lexicographic order.
+    %
+    Since no $u_n$ can be empty, we can write $v_n := a_n \cdot u_n$.
+    %
+    Consider now the sequence $a_0, a_1, \dots$ of elements from $X$.
+    %
+    By the well quasi ordering on $X$, there is an infinite monotone subsequence
+    %
+    \begin{align*}
+        a_{n_0} \preceq a_{n_1} \preceq \cdots.
+    \end{align*}
+    %
+    Consider now the new sequence
+    %
+    \begin{align*}
+        u_0, u_1, \dots, u_{n_0 - 1}, v_{n_0}, v_{n_1}, \dots.
+    \end{align*}
+    %
+    This sequence is bad, since a domination therein would result in a domination in the original sequence.
+    This contradicts minimality of the original sequence,
+    since $v_{n_0}$ is strictly shorter than $u_{n_0}$.
+\end{solution}
+
 \begin{exercise}
 	Show that every downward-closed language of words (w.r.t.~the subword ordering) is regular.
 \end{exercise}
