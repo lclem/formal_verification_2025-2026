@@ -28,7 +28,7 @@ Please send me your solutions in PDF format.
 |    1 | 02.03 | [lecture 02](docs/lectures/02/summary) | [tutorial 02](assets/tutorials/build/02.pdf) |                           |
 |    2 | 09.03 | [lecture 03](docs/lectures/03/summary) | [tutorial 03](assets/tutorials/build/03.pdf) |                           |
 |    3 | 16.03 | [lecture 04](docs/lectures/04/summary) | [tutorial 04](assets/tutorials/build/04.pdf) |                           |
-|    4 | 23.03 |                                        |                                              |                           |
+|    4 | 23.03 | [lecture 05](docs/lectures/05/summary) | [tutorial 05](assets/tutorials/build/05.pdf) |                           |
 |    5 | 30.03 | XXXXXX                                 | XXXXXX                                       | monday := friday          |
 |    6 | 06.04 | XXXXXX                                 | XXXXXX                                       | Easter monday             |
 |    7 | 13.04 |                                        |                                              |                           |
