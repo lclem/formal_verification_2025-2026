@@ -31,7 +31,7 @@ Please send me your solutions in PDF format.
 |    4 | 23.03 | [lecture 05](docs/lectures/05/summary) | [tutorial 05](assets/tutorials/build/05.pdf) |                           |
 |    5 | 30.03 | XXXXXX                                 | XXXXXX                                       | monday := friday          |
 |    6 | 06.04 | XXXXXX                                 | XXXXXX                                       | Easter monday             |
-|    7 | 13.04 |                                        |                                              |                           |
+|    7 | 13.04 | [lecture 06](docs/lectures/06/summary) | [tutorial 06](assets/tutorials/build/06.pdf) |                           |
 |    8 | 20.04 |                                        |                                              |                           |
 |    9 | 27.04 |                                        |                                              |                           |
 |   10 | 04.05 |                                        |                                              |                           |
