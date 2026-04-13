@@ -32,7 +32,7 @@
     \end{align*}
     %
     for some clock variables $x, y \in X$,
-    comparison operator $\sim \in \set{<, \leq, =, \geq, >}$
+    comparison operator ${\sim} \in \set{<, \leq, =, \geq, >}$
     and integer constant $c \in \Z$.
     %
     Show that adding diagonal constraints to the syntax of timed automata
@@ -78,6 +78,46 @@
     %
     The idea is that a discrete-time clock can store the current state of a finite automaton.
     State updates are simulated by suitable time elapses and clock resets.
+
+    There are many ways to achieve this.
+    To fix ideas, consider finite automata $A_1, \dots, A_k$ with pairwise disjoint sets of states $Q_1, \dots, Q_k$,
+    with a common set of states $Q = Q_1 \cup \cdots \cup Q_k = \set{q_1, \dots, q_m}$.
+    %
+    We use clocks $x_1, \dots, x_m$ to store the current state of the finite automata.
+    The idea is that $x_i$ is zero if the relevant automaton is not in $q_i$
+    and that $x_i$ is one if the relevant automaton is in $q_i$.
+    %
+    We need to efficiently update this information.
+    %
+    More generally, we show how we can set $x_i$ to a new value in $\set{0, 1}$,
+    while keeping the other clocks unchanged.
+    %
+    Setting $x_i$ to zero is easy: Just reset it.
+    %
+    Setting $x_i$ to one (while keeping the other clocks unchanged) is more tricky.
+    %
+    We show how to do this with an example.
+    %
+    Suppose we have three clocks $x_1, x_2, x_3$, starting at $\tuple{0, 0, 1}$,
+    and we want to set $x_1$ to one while keeping $x_2$ and $x_3$ unchanged,
+    as to reach $\tuple{1, 0, 1}$.
+    %
+    More generally, we want to go from $\tuple{0, x_2, x_3}$ to $\tuple{1, x_2, x_3}$.
+    %
+    \begin{equation*}
+        \begin{tabular}{c|c|c|c|c|c}
+                & I & II & III & IV & V\\
+        \hline
+        $x_1$   & 0 & 1  & 0   & 1  & 1 \\
+        $x_2$   & 0 & 1  & 1   & 2  & 0 \\
+        $x_3$   & 1 & 2  & 0   & 1  & 1
+        \end{tabular}
+    \end{equation*}
+    %
+    In the first step, we elapse one time unit.
+    In the second step, we reset $x_1$ and all clocks with value $2$.
+    In the third step, we elapse one time unit.
+    In the fourth step, we reset all clocks with value $2$.
 
     We can also implement a similar simulation using dense-time clocks,
     by encoding the state of the finite automaton in the total ordering of the fractional part of the clock values.
