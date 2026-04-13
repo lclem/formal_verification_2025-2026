@@ -1,0 +1,67 @@
+% !TEX root = 06.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 06}
+\date{23/03/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Timed automata}
+
+\begin{exercise}
+    Show that timed regular languages are effectively closed under
+    \begin{enumerate}
+        \item union,
+        \item intersection,
+        \item projection.
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}[Diagonal constraints]
+    A \emph{diagonal constraint} is a constraint of the form
+    %
+    \begin{align*}
+        x - y \sim c,
+    \end{align*}
+    %
+    for some clock variables $x, y \in X$,
+    comparison operator $\sim \in \set{<, \leq, =, \geq, >}$
+    and constant $c \in \N$.
+    %
+    Show that adding diagonal constraints to the syntax of timed automata
+    does not increase their expressiveness
+    (as recognisers of timed languages).
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+    Fix a set of clocks $X = \set{x_1, \dots, x_k}$
+    and a maximal constant $M \in \N$.
+    How many regions are there?
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+    Show that the nonemptiness problem for timed automata is \PSPACE-hard.
+\end{exercise}
+\begin{solution}
+    Reduce from the nonemptiness problem for the intersection of $k$ regular languages, which is \PSPACE-hard (in fact \PSPACE-complete).
+\end{solution}
+
+\begin{exercise}
+    Consider timed automata over a single clock $X = \set x$.
+    What is the computation complexity of the nonemptiness problem?
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}
