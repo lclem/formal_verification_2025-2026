@@ -1,0 +1,144 @@
+% !TEX root = 06.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 06}
+\date{23/03/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Timed automata}
+
+\begin{exercise}
+    Show that timed regular languages are effectively closed under
+    \begin{enumerate}
+        \item union,
+        \item intersection,
+        \item projection.
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+    For union and intersection, we can perform standard product constructions.
+    For clocks we take the disjoin union of clocks.
+    For projection, just project the alphabet.
+\end{solution}
+
+\begin{exercise}[Diagonal constraints]
+    A \emph{diagonal constraint} is a constraint of the form
+    %
+    \begin{align*}
+        x - y \sim c,
+    \end{align*}
+    %
+    for some clock variables $x, y \in X$,
+    comparison operator $\sim \in \set{<, \leq, =, \geq, >}$
+    and integer constant $c \in \Z$.
+    %
+    Show that adding diagonal constraints to the syntax of timed automata
+    does not increase their expressiveness
+    (as recognisers of timed languages).
+\end{exercise}
+\begin{solution}
+    The main intuition is that $x - y$ is invariant under time elapse.
+    Thus we can store in the state whether $x - y \sim c$ holds or not.
+    %
+    When $y$ is reset, we need to know whether $x \sim c$ holds in order to update the state.
+    We can add additional such tests to the guard of the transitions.
+    %
+    When $x$ is reset, the reasoning is similar.
+    The construction is exponential in the number of diagonal constraints to be removed.
+\end{solution}
+
+\begin{exercise}
+    Fix a set of clocks $X = \set{x_1, \dots, x_k}$ and a maximal constant $M \in \N$.
+    Find an upper bound on the number of regions.
+\end{exercise}
+\begin{solution}
+    A region is completely determined by:
+    \begin{enumerate}
+        \item The integral part of each clock up to $M$, or unbounded.
+        There are $M + 2$ possibilities for each clock, thus $(M + 2)^k$ possibilities in total.
+        \item The total order of the fractional parts of the clocks, of which there are $k!$ possibilities.
+        \item For each clock, whether its fractional part is zero or not, which gives $2^k$ possibilities.
+    \end{enumerate}
+    This gives the upper bound
+    %
+    \begin{align*}
+        (M + 2)^k \cdot k! \cdot 2^k. \qedhere
+    \end{align*}
+\end{solution}
+
+\begin{exercise}
+    Show that the nonemptiness problem for timed automata is \PSPACE-hard.
+\end{exercise}
+\begin{solution}
+    We reduce from the nonemptiness problem for the intersection of $k$ regular languages,
+    which is \PSPACE-hard (in fact \PSPACE-complete).
+    %
+    The idea is that a discrete-time clock can store the current state of a finite automaton.
+    State updates are simulated by suitable time elapses and clock resets.
+
+    We can also implement a similar simulation using dense-time clocks,
+    by encoding the state of the finite automaton in the total ordering of the fractional part of the clock values.
+\end{solution}
+
+\begin{exercise}
+    Consider timed automata over a single clock $X = \set x$.
+    What is the computational complexity of the nonemptiness problem?
+\end{exercise}
+\begin{solution}
+    Regions for a single clock are considerably simpler.
+    In fact, it suffices to keep track of the following information:
+    %
+    \begin{enumerate}
+        \item The integral part of the clock up to $M$, or unbounded.
+        \item Whether the fractional part of the clock is zero or not.
+    \end{enumerate}
+    %
+    When clock constraints are encoded in binary, $M$ is still exponential in the size of the input.
+    However, let $c_1 < \cdots < c_k$ be the pairwise distinct constants appearing in the input.
+    It suffices just to keep track of whether the integral part of the clock is equal to $c_i$ for some $i$,
+    or whether it is between $c_i$ and $c_{i + 1}$ for some $i$, or whether it is greater than $c_k$.
+    %
+    This gives a polynomial number of regions.
+    Thus the nonemptiness problem for timed automata with a single clock is in \NL.
+    Reachability is \NL-hard already for finite graphs, so altogether the problem is \NL-complete.
+\end{solution}
+
+\begin{exercise}
+    What is the computational complexity of the universality problem for deterministic timed automata?
+\end{exercise}
+\begin{solution}
+    Deterministic timed automata are efficiently closed under complementation,
+    so the universality problem reduces to the nonemptiness problem in \PTIME,
+    and thus it is in \PSPACE.
+    %
+    The problem is also \PSPACE-hard, since the nonemptiness problem for nondeterministic timed automata
+    is \PSPACE-hard already for deterministic timed automata,
+    and the latter reduces to the universality problem via complementation.
+\end{solution}
+
+\begin{exercise}
+    Show that the universality problem for nondeterminstic timed automata with two clocks is undecidable.
+\end{exercise}
+\begin{solution}
+    We reduce from the reachability problem for Turing machines, which is undecidable.
+    %
+    More precisely, we show that the \emph{complement} of the set of correct encodings of computations of a Turing machine is timed regular.
+    %
+    The idea is to encode a configuration of a Turing machine
+    as a timed word lasting one time unit.
+    %
+    Two equal consecutive configurations are encoded by requiring that corresponding symbols appear at one time unit distance.
+    %
+    A timed automaton can check mistakes in this encoding using only two clocks.
+    %
+    A clock is used to keep track of the current time withing a configuration.
+    The second clock is used to check that corresponding symbol in the next configuration is incorrect.
+\end{solution}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}
