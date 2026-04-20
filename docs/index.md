@@ -32,8 +32,8 @@ Please send me your solutions in PDF format.
 |    5 | 30.03 | XXXXXX                                 | XXXXXX                                       | monday := friday          |
 |    6 | 06.04 | XXXXXX                                 | XXXXXX                                       | Easter monday             |
 |    7 | 13.04 | [lecture 06](docs/lectures/06/summary) | [tutorial 06](assets/tutorials/build/06.pdf) |                           |
-|    8 | 20.04 |                                        |                                              |                           |
-|    9 | 27.04 |                                        |                                              |                           |
+|    8 | 20.04 | XXXXXX                                 | XXXXXX                                       | cancelled                 |
+|    9 | 27.04 | [lecture 07](docs/lectures/06/summary) | [tutorial 07](assets/tutorials/build/07.pdf) |                           |
 |   10 | 04.05 | XXXXXX                                 | XXXXXX                                       | dzień rektorski           |
 |   11 | 11.05 |                                        |                                              |                           |
 |   12 | 18.05 |                                        |                                              |                           |
