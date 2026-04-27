@@ -17,9 +17,19 @@
 \begin{solution}
     Since the untiming of a regular timed language is regular,
     it suffices to find a regular timed language $L(A)$
-    \st~the untiming of $L(A)$ is not regular (this is a stronger result).
+    \st~the untiming of its complement $T(\Sigma) \setminus L(A)$ is not regular
+    (this is a stronger result).
     %
     It suffices to consider a 1-clock nontederministic timed automaton $A$.
+    Fix a two letter alphabet $\Sigma = \set{a, b}$.
+    Consider the language $M$ of all words of the form $a^m b^n$, where $m \leq n$.
+    A simple pumping argument shows that $M$ is not regular.
+
+    We can construct a timed encoding of such words
+    by requiring that every $a$ is follows by a $b$ after exactly one time unit.
+    %
+    A 1-clock nondeterministic timed automaton $A$ can verify words not satisfying this encoding.
+    Amongst other cases, it can guess that an $a$ at time $t$ is not followed by a $b$ at time $t+1$.
 \end{solution}
 
 \begin{exercise}
@@ -27,6 +37,10 @@
     of timed languages recognised by nondeterministic timed automata?
 \end{exercise}
 \begin{solution}
+    Clearly we obtain an exponential space upper bound
+    by first untiming the automaton and then checking universality.
+    The question is whether this is optimal.
+    It turns out that the problem is indeed EXPSPACE-complete.
 \end{solution}
 
 \section*{Timed automata with $\e$-transitions}
@@ -37,6 +51,8 @@
     than the class of timed regular languages (\ie, without $\e$-transitions).
 \end{exercise}
 \begin{solution}
+    We can encode the language of timed words over $\Sigma = \set a$
+    where the input symbols $a$ occur only at even time points.
 \end{solution}
 
 \section*{One-clock alternating timed automata}
@@ -52,9 +68,10 @@
     Are untimings of timed languages recognised by one-clock alternating timed automata regular?
 \end{exercise}
 \begin{solution}
+    No, we can build a 1-clock timed automaton
+    whose untiming is the (nonregular) language $M$ of all words of the form $a^m b^n$,
+    where $m \leq n$.
 \end{solution}
-
-
 
 % \begin{exercise}
 %     Show that timed automata with $\e$-transitions recognise strictly more timed languages
