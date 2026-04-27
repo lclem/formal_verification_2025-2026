@@ -5,6 +5,7 @@ docs/.jekyll-metadata
 *.lock
 **/.stack-work/*
 Gemfile.lock
+*sync-conflict*
 
 *.aux
 *.log
