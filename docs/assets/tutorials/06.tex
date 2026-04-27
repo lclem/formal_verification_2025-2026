@@ -159,25 +159,6 @@
     and the latter reduces to the universality problem via complementation.
 \end{solution}
 
-\begin{exercise}
-    Show that the universality problem for nondeterminstic timed automata with two clocks is undecidable.
-\end{exercise}
-\begin{solution}
-    We reduce from the reachability problem for Turing machines, which is undecidable.
-    %
-    More precisely, we show that the \emph{complement} of the set of correct encodings of computations of a Turing machine is timed regular.
-    %
-    The idea is to encode a configuration of a Turing machine
-    as a timed word lasting one time unit.
-    %
-    Two equal consecutive configurations are encoded by requiring that corresponding symbols appear at one time unit distance.
-    %
-    A timed automaton can check mistakes in this encoding using only two clocks.
-    %
-    A clock is used to keep track of the current time withing a configuration.
-    The second clock is used to check that corresponding symbol in the next configuration is incorrect.
-\end{solution}
-
 \bibliographystyle{plainurl}
 \bibliography{bibliography}
 

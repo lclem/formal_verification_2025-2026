@@ -1,0 +1,71 @@
+% !TEX root = 07.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 07}
+\date{27/04/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Timed automata}
+
+\begin{exercise}
+    Show that the class of timed languages recognised by nondeterministic timed automata
+    is not closed under complementation.
+\end{exercise}
+\begin{solution}
+    Since the untiming of a regular timed language is regular,
+    it suffices to find a regular timed language $L(A)$
+    \st~the untiming of $L(A)$ is not regular (this is a stronger result).
+    %
+    It suffices to consider a 1-clock nontederministic timed automaton $A$.
+\end{solution}
+
+\begin{exercise}
+    What is the complexity of the universality problem \emph{for the untiming}
+    of timed languages recognised by nondeterministic timed automata?
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\section*{Timed automata with $\e$-transitions}
+
+\begin{exercise}
+    Show that the class of timed languages recognised by
+    timed automata with $\e$-transitions is strictly larger
+    than the class of timed regular languages (\ie, without $\e$-transitions).
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\section*{One-clock alternating timed automata}
+
+\begin{exercise}[\protect{\cite[Theorem 2.8]{LasotaWalukiewicz:ATA:ACM08}}]
+    Show that the classes of timed languages recognised by deterministic timed automata (with any number of clocks)
+    and by one-clock alternating timed automata are incomparable.
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+    Are untimings of timed languages recognised by one-clock alternating timed automata regular?
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+
+
+% \begin{exercise}
+%     Show that timed automata with $\e$-transitions recognise strictly more timed languages
+%     than timed automata without $\e$-transitions.
+%     %
+%     What about the untiming of these languages?
+% \end{exercise}
+% \begin{solution}
+% \end{solution}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}

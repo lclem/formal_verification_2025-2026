@@ -6,9 +6,7 @@ permalink: docs/lectures/07/summary
 ## summary
 * universality of timed automata
 * extensions of timed automata
+	*  timed automata with epsilon-transitions
 	* alternating timed automata
-	* timed automata with epsilon-transitions
-	* hybrid and stopwatch automata
 ## references
 - ["Alternating timed automata", Lasota and Walukiewicz, 2008](../../assets/pdf/lasota-walukiewicz.pdf)
-- 
