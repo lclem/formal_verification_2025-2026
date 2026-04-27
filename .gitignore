@@ -11,7 +11,10 @@ Gemfile.lock
 *.log
 *.out
 *.bbl
+*.blg
+*.fls
 *.pdfsync
 *.synctex.gz
+*.fdb_latexmk
 
 docs/assets/tutorials/*.pdf

@@ -11,6 +11,7 @@
 \section*{Timed automata}
 
 \begin{exercise}
+    \label{ex:1-TA}
     Show that the class of timed languages recognised by nondeterministic timed automata
     is not closed under complementation.
 \end{exercise}
@@ -40,7 +41,7 @@
     Clearly we obtain an exponential space upper bound
     by first untiming the automaton and then checking universality.
     The question is whether this is optimal.
-    It turns out that the problem is indeed EXPSPACE-complete.
+    It turns out that the problem is indeed EXPSPACE-complete~\cite{BrenguierGollerSankur:CONCUR:2012}.
 \end{solution}
 
 \section*{Timed automata with $\e$-transitions}
@@ -51,8 +52,28 @@
     than the class of timed regular languages (\ie, without $\e$-transitions).
 \end{exercise}
 \begin{solution}
-    We can encode the language of timed words over $\Sigma = \set a$
-    where the input symbols $a$ occur only at even time points.
+    We can encode the language $L$ of timed words over $\Sigma = \set a$
+    of the form $\tuple{a, t}$ where $t$ is an integer.
+    %
+    A two states $Q = \set{p, q}$ 1-clock automaton with $\e$-transitions can recognise $L$.
+    While waiting in the initial state $p$,
+    the automaton resets its clock whenever $x = 1$ with an $\e$-transition.
+    %
+    Nondeterministically, it can also read $a$ when $x = 0$ and move to state $q$,
+    which is accepting.
+
+    Without $\e$-transitions, not even a timed Turing machine $A$ can recognise $L$.
+    %
+    By way of contradiction, suppose this is not the case
+    and let $M$ be the maximal constant appearing in any transition of the machine.
+    %
+    Consider the input words $w = \tuple{a, M+1}$ and $w' = \tuple{a, M+1.5}$.
+    Since $w \in L$, by assumption $A$ accepts $w$.
+    After elapsing $M+1$ time units, the clocks of $A$ all have value $M+1$.
+    Any clock guard of $A$ satisfied by elapsing $M+1$ time units
+    is also satisfied by elapsing $M+1.5$ time units.
+    Thus the same run of $A$ on $w$ also shows that $A$ accepts $w'$,
+    which is a contradiction since $w' \notin L$.
 \end{solution}
 
 \section*{One-clock alternating timed automata}
@@ -70,17 +91,8 @@
 \begin{solution}
     No, we can build a 1-clock timed automaton
     whose untiming is the (nonregular) language $M$ of all words of the form $a^m b^n$,
-    where $m \leq n$.
+    where $m \leq n$, see~\cref{ex:1-TA}.
 \end{solution}
-
-% \begin{exercise}
-%     Show that timed automata with $\e$-transitions recognise strictly more timed languages
-%     than timed automata without $\e$-transitions.
-%     %
-%     What about the untiming of these languages?
-% \end{exercise}
-% \begin{solution}
-% \end{solution}
 
 \bibliographystyle{plainurl}
 \bibliography{bibliography}
