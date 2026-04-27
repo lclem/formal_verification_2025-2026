@@ -8,5 +8,6 @@ permalink: docs/lectures/07/summary
 * extensions of timed automata
 	*  timed automata with epsilon-transitions
 	* alternating timed automata
+
 ## references
 - ["Alternating timed automata", Lasota and Walukiewicz, 2008](../../assets/pdf/lasota-walukiewicz.pdf)
