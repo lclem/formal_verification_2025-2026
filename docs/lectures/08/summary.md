@@ -1,6 +1,6 @@
 ---
 title: Lecture 8
-permalink: docs/lectures/07/summary
+permalink: docs/lectures/08/summary
 ---
 # Lecture 8  [[slides](https://docs.google.com/presentation/d/1v1KpNZW-M3Gj8TD6LoxsdgElJx1RQ9HtIADj4nZ0DyQ/edit?usp=sharing){:target="_blank"}]
 ## summary
