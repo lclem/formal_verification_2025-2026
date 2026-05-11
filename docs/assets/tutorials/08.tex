@@ -1,0 +1,199 @@
+% !TEX root = 08.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 08}
+\date{11/05/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Büchi's Büchi automata complementation}
+
+Let $D = \set{\bot, 0, 1}$ be a set with three elements.
+Intuitively, $\bot$ means no run, $0$ means a run,
+and $1$ means a run visiting an accepting transition.
+%
+In the following, fix a set of states $Q$.
+%
+A \emph{graph} is a function $g \in D^{Q \times Q}$.
+%
+A Büchi automaton is a tuple $A = \tuple{\Sigma, Q, I, \delta}$ where
+$\Sigma$ is the input alphabet,
+$Q$ is the set of states, $I \subseteq Q$ is the set of initial states,
+and the transition relation is represented by a family of graphs
+$\delta : \Sigma \to D^{Q \times Q}$,
+one graph $\delta_a$ for each input symbol $a \in \Sigma$.
+%
+The language $\lang A$ recognised by $A$ is defined as expected.
+
+We study how to build the complement of $A$,
+following Büchi's original Ramsey-based construction.
+%
+For two states $p, q \in Q$ and an input word $w \in \Sigma^*$, write
+%
+\begin{itemize}
+    \item $p \xrightarrow w q$ if there is a run from $p$ to $q$ on $w$,
+    \item $p \xdashrightarrow w q$ if there is a run from $p$ to $q$ on $w$ visiting an accepting transition, and
+    \item $p \xslashedrightarrow w q$ if there is no run from $p$ to $q$ on $w$.
+\end{itemize}
+%
+An \emph{edge} is a tuple $e = \tuple {p, x, q}$ where $p, q \in Q$ and $x \in D$.
+The \emph{language} (or \emph{semantics}) of an edge is defined as follows.
+%
+\begin{align}
+    \lang {p, 1, q}
+        &= \setof{w \in \Sigma^*}{p \xdashrightarrow w q}, \\
+    \lang {p, 0, q}
+        &= \setof{w \in \Sigma^*}{p \xrightarrow w q} \setminus \lang {p, 1, q}, \\
+    \lang {p, \bot, q}
+        &= \setof{w \in \Sigma^*}{p \xslashedrightarrow w q}
+        = \Sigma^* \setminus (\lang {p, 0, q} \cup \lang {p, 1, q}).
+\end{align}
+%
+The language of a graph $g$ is the intersection of the languages of its edges,
+%
+\begin{align}
+    \lang g = \bigcap_{e \in g} \lang e = \bigcap_{p, q \in Q} \lang {p, g(p, q), q}.
+\end{align}
+%
+Finally, the language of two graphs $g, h$ is
+%
+\begin{align}
+    \lang {g, h} = \lang g \cdot \lang h^\omega.
+\end{align}
+%
+We use languages $\lang {g, h}$ to construct the complement of $\lang A$.
+
+\begin{exercise}
+    Show that for every finite word $w \in \Sigma^*$
+    there exists a graph $g_w$, the \emph{characteristic graph} associated to $w$, \st~$w \in \lang {g_w}$.
+\end{exercise}
+\begin{solution}
+    Let $g_w$ be the graph defined as follows.
+    For every pair of states $p, q \in Q$,
+    we have $g_w(p, q) = 1$ if $p \xdashrightarrow w q$,
+    $g_w(p, q) = 0$ if $p \xrightarrow w q$ but $p \xslashedrightarrow w q$, and
+    $g_w(p, q) = \bot$ if $p \xslashedrightarrow w q$.
+    %
+    By definition, $w$ is in the language of every edge of $g_w$,
+    and thus $w \in \lang {g_w}$, as required.
+\end{solution}
+
+\begin{exercise}
+    Show that $\Sigma^\omega = \bigcup_{g, h} \lang {g, h}$,
+    where the union is taken over all pairs of graphs $g, h$.
+\end{exercise}
+\begin{solution}
+    We apply the infinite Ramsey's theorem.
+    Consider an arbitrary infinite word $w = a_0 a_1 \cdots \in \Sigma^\omega$.
+    %
+    Consider the infinite graph with nodes $\N$
+    and edges $\tuple {i, j}$ for $i < j$ coloured by $g_{a_i a_{i+1} \cdots a_{j-1}}$.
+    %
+    Since there are only finitely many colours,
+    by the infinite Ramsey's theorem the graph as an infinite monochromatic subgraph.
+    %
+    In other words, there exist an infinite set $I = \set{i_0 < i_1 < \cdots} \subseteq \N$ and a graph $h$
+    \st~for every $i_j$ from $I$ we have $g_{a_{i_j} a_{i_j+1} \cdots a_{i_{j+1}-1}} = h$.
+    %
+    We can accordingly partition the word $w$ into segments
+    %
+    \begin{align*}
+        w = w_0 w_1 w_2 \cdots
+    \end{align*}
+    %
+    \st~$g := g_{w_0}$ and $h = g_{w_1} = g_{w_2} = \cdots$.
+    %
+    % (In particular, $h$ is idempotent $h = h; h$.)
+    %
+    It follows that $w \in \lang {g, h}$, as required.
+\end{solution}
+
+\begin{exercise}
+    For every pair of graphs $g, h$,
+    show that either $\lang {g, h} \subseteq \lang A$ or $\lang {g, h} \cap \lang A = \emptyset$.
+\end{exercise}
+%
+\begin{solution}
+    Intuitively, all words in $\lang g$ share the same behaviour in $A$.
+    We show that $\lang {g, h} \cap \lang A \neq \emptyset$ implies $\lang {g, h} \subseteq \lang A$.
+    %
+    To this end, consider an arbitrary word $w' \in \lang {g, h} = \lang g \cdot \lang h^\omega$
+    which is naturally factorised as $w' = w'_0 w'_1 w'_2 \cdots$
+    where $w'_0 \in \lang g$ and $w'_1, w'_2, \dots \in \lang h$.
+    %
+    By assumption, there exists a word $w \in \lang {g, h} = \lang g \cdot \lang h^\omega$
+    which is accepted by the automaton $A$.
+    %
+    Thus let $\pi$ be an accepting run of $A$ on $w$.
+    %
+    We can write $w = w_0 w_1 w_2 \cdots$ where $w_0 \in \lang g$ and $w_1, w_2, \dots \in \lang h$.
+    %
+    We can split $\pi$ into segments
+    %
+    \begin{align*}
+        \pi = p_0 \goesto {w_0} p_1 \goesto {w_1} p_2 \goesto {w_2} \cdots
+    \end{align*}
+    %
+    \st~infinitely many segments visit an accepting transition.
+    %
+    Since $w_0, w_0'$ are both in $\lang g$, they share the same behaviour in $A$,
+    and in particular $p_0 \goesto {w_0'} p_1$.
+    %
+    The same argument applies to $w_i, w_i' \in \lang h$,
+    which means that $p_i \goesto {w_i'} p_{i+1}$ as well.
+    %
+    We thus obtain an infinite run
+    %
+    \begin{align*}
+        \pi = p_0 \goesto {w_0'} p_1 \goesto {w_1'} p_2 \goesto {w_2'} \cdots
+    \end{align*}
+    %
+    Moreover, the construction preserves accepting segments,
+    and thus $\pi$ is an accepting run of $A$ on $w'$, as required.
+\end{solution}
+
+\begin{exercise}
+    Show that the following problem is decidable, in polynomial time.
+    %
+    In input we are given a pair of graphs $g, h$
+    and we need to decide whether $\lang {g, h} \cap \lang A \neq \emptyset$.
+\end{exercise}
+\begin{solution}
+    Decompose $h$ into its strongly connected components (SCCs).
+    Call a component \emph{accepting} if it contains an accepting transition.
+    This can be done in polynomial time.
+    %
+    We have $\lang {g, h} \cap \lang A \neq \emptyset$
+    iff there exists an edge $e = \tuple {p, x, q}$ of $g$ with $p \in I$ and $x \neq \bot$
+    \st~in $h$ there is a path from $q$ to an accepting SCC of $h$.
+    %
+    This can also be checked in polynomial time.
+\end{solution}
+
+\begin{exercise}
+    For every pair of graphs $g, h$,
+    the language $\lang {g, h}$ is $\omega$-regular.
+\end{exercise}
+\begin{solution}
+    First of all, the language of a single edge $\lang e \subseteq \Sigma^*$ is regular,
+    as it easily follows from its definition.
+    %
+    The language of a graph is defined as a finite intersection of languages of edges, and is therefore regular.
+    Finally, $\lang {g, h}$ is defined as a concatenation of a regular language $\lang g$
+    and an $\omega$-power of a regular language $\lang h$, and is therefore $\omega$-regular.
+\end{solution}
+
+The exercises above show that we can write $\Sigma^\omega \setminus \lang A$
+\emph{effectively} as a finite union of $\omega$-regular languages $\lang {g, h}$:
+%
+\begin{align}
+    \Sigma^\omega \setminus \lang A
+        = \bigcup_{g, h : \lang {g, h} \cap \lang A = \emptyset} \lang {g, h}.
+\end{align}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}
