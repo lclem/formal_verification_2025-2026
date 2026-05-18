@@ -1,0 +1,116 @@
+% !TEX root = 09.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 09}
+\date{18/05/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Gale-Stewart games}
+
+\begin{exercise}
+    Consider Gale-Stewart games with context-free winning conditions.
+    \begin{itemize}
+        % \item Are they determined?
+        \item Can we decide whether a given player has a winning strategy?
+    \end{itemize}
+\end{exercise}
+\begin{solution}
+    No, GS games with $\omega$-context-free winning conditions are undecidale.
+    We can reduce from the universality problem for $\omega$-context-free languages, which is known to be undecidable.
+    For instance, consider an $\omega$-CFL $L \subseteq \Sigma^\omega$.
+    Consider the GS game where P1 plays letters from $\Sigma$ and P2 plays letters from a singleton alphabet $\set{a}$.
+    Consider the winning condition for the second player
+    $W_{II} := \setof {a_0 \$ a_1 \$ a_2 \$ \cdots} {a_0 a_1 a_2 \cdots \in L}$.
+    %
+    By the closure properties of $\omega$-CFLs, $W_{II}$ is an $\omega$-CFL.
+    %
+    Then P2 has a winning strategy iff $L = \Sigma^\omega$.
+
+    A similar argument can be used to show undecidability when considering a $\omega$-CFL winning condition $W_I$ for P1.
+\end{solution}
+
+% \begin{exercise}
+%     Let's allow Player II a fixed lookahead on the moves of Player I.
+%     Is it decidable whether Player II has a winning strategy?
+% \end{exercise}
+% \begin{solution}
+% \end{solution}
+
+% \begin{exercise}
+%     Let's allow Player II a fixed \emph{negative} lookahead on the moves of Player I.
+%     Is it decidable whether Player II has a winning strategy?
+% \end{exercise}
+% \begin{solution}
+% \end{solution}
+
+% \begin{exercise}
+%     Consider MSO sublogics such as $FO(\leq)$ and $FO(+1)$
+%     and corresponding GS games.
+%     %
+%     Are winning strategies definable already in these sublogics?
+% \end{exercise}
+% \begin{solution}
+% \end{solution}
+
+\section{Closure under uniformisation}
+
+\begin{exercise}[\protect{\cite[Sec.~6]{Thomas:FOSSACS:2009}}]
+    Consider Presburger arithmetic $\tuple{\N, +, \leq}$.
+    %
+    Construct a formula $\varphi(X, Y)$ with two monadic free variables $X, Y$
+    \st~$\exists Y \forall X \varphi(X, Y)$ is true, but
+    there is no \emph{recursive} witness $Y = \tilde Y$ \st~$\forall X \varphi(X, \tilde Y)$ is true.
+\end{exercise}
+\begin{solution}
+    Let $\varphi_{\text{sq}}(X)$ say that $X$ is the set of squares $S := \set{0^2, 1^2, 2^2, 3^2, \dots}$.
+    %
+    It is definable in Presburger arithmetic since the distance of three subsequent squares
+    $a = n^2$, $b = (n+1)^2$, $c = (n+2)^2$ increases by two:
+    $(c - b) - (b - a) = 2$.
+    %
+    We can then write $\varphi_{\text{sq}}(X)$ as the conjunction of the following three formulas:
+    %
+    \begin{itemize}
+        \item $X(0) \land X(1)$,
+        \item $X$ is infinite, and
+        \item ``the distance of three consecutive elements of $X$ increases by two'' (as described above).
+    \end{itemize}
+    %
+    Since multiplication is definable in the structure $\tuple{\N, +, S}$,
+    there exits a non-recursive set $M \subseteq \N$
+    definable by a formula $\psi(S, y)$ over $\tuple{\N, +, S}$ with one free variable $y$.
+    %
+    Now consider the following Presburger formula
+    %
+    \begin{align*}
+        \varphi(X, Y) \;\equiv\; \varphi_{\text{sq}}(X) \to \forall y. (Y(y) \leftrightarrow \psi(X, y)).
+    \end{align*}
+    %
+    Since there is a unique set of squares, the only solution to the formula above is $Y = M$,
+    which is not recursive.
+\end{solution}
+
+\section{Deterministic separability}
+
+Consider language $L, M, S \subseteq \Sigma^\omega$.
+We say that $S$ \emph{separates} $L$ and $M$ if $L \subseteq S$ and $M \cap S = \emptyset$.
+
+\begin{exercise}
+    Show that the following problem is decidable.
+    %
+    In input we are given two nondeterministic Büchi automata $A, B$ over the same alphabet $\Sigma$
+    and a finite set of priorities $P \subseteq \N$,
+    and we need to decide whether there is a deterministic parity automaton $S$ over $\Sigma$ with priorities in $P$
+    \st~$L(S)$ separates $L(A)$ and $L(B)$.
+\end{exercise}
+% \begin{solution}
+%     TODO.
+% \end{solution}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}
