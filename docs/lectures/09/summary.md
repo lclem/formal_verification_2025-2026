@@ -12,3 +12,4 @@ permalink: docs/lectures/09/summary
 
 ## references
 - ["Logic, arithmetic, and automata", Church 1963](../../assets/pdf/church.pdf)
+-  ["Synthesis with finite automata", Walukiewicz 2021](../../assets/pdf/synthesis.pdf)
