@@ -37,7 +37,7 @@ Please send me your solutions in PDF format.
 |   10 | 04.05 | XXXXXX                                 | XXXXXX                                       | dzień rektorski           |
 |   11 | 11.05 | [lecture 08](docs/lectures/08/summary) | [tutorial 08](assets/tutorials/build/08.pdf) |                           |
 |   12 | 18.05 | [lecture 09](docs/lectures/09/summary) | [tutorial 09](assets/tutorials/build/09.pdf) |                           |
-|   13 | 25.05 |                                        |                                              |                           |
+|   13 | 25.05 | [lecture 10](docs/lectures/10/summary) |                                              |                           |
 |   14 | 01.06 |                                        |                                              |                           |
 |   15 | 08.06 |                                        |                                              |                           |
 
