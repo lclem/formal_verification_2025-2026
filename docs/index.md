@@ -2,18 +2,15 @@
 The final grade is the weighted sum 2/3 * oral exam + 1/3 * homework.
 The oral exam and homework are graded in the range 2--5.
 
-There are [11 questions](exam.md) for the oral exam.
+There are [10 questions](exam.md) for the oral exam.
 It is possible to choose a subset of questions, as follows:
-- grade 5 --> choose 9 questions
-- grade 4 --> choose 6 questions
-- grade 3 --> choose 4 questions
+- grade 5: choose 9 questions
+- grade 4: choose 6 questions
+- grade 3: choose 4 questions
 
 # Homework
 Please send me your solutions in PDF format.
 * [First set](./assets/homework/01.pdf) of homeworks, **deadline 2026/04/22**.
-
-# Oral exam
-Please find  the questions for the oral exam.
 
 #  Calendar
 
@@ -35,6 +32,7 @@ Please find  the questions for the oral exam.
 |   13 | 25.05 | [lecture 10](docs/lectures/10/summary) | [tutorial 10](assets/tutorials/build/10.pdf) | bilinear control systems   |
 |   14 | 01.06 | [lecture 11](docs/lectures/11/summary) | [tutorial 11](assets/tutorials/build/11.pdf) | probabilistic verification |
 |   15 | 08.06 |                                        |                                              |                            |
+
 # Original plan (14 lectures)
 - verification for finite-state systems (2 lectures)
 	- temporal logics: LTL, CTL, CTL*
