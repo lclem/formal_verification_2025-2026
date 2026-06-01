@@ -30,8 +30,8 @@
         $s$ such that $x_s = 1$ without solving linear equations?
     \end{enumerate}
 \end{exercise}
-\begin{solution}
-\end{solution}
+% \begin{solution}
+% \end{solution}
 
 \begin{exercise}
     Let $M = \tuple{S, \to}$ be a finite Markov chain
@@ -51,8 +51,8 @@
         \item Can we compute these probabilities?
     \end{enumerate}
 \end{exercise}
-\begin{solution}
-\end{solution}
+% \begin{solution}
+% \end{solution}
 
 \begin{exercise}
     Let $M$ be a Markov chain
@@ -60,8 +60,8 @@
     %
     Can we compute $\Pr {M \models L}$ by looking at the synchronised product $M \times A$?
 \end{exercise}
-\begin{solution}
-\end{solution}
+% \begin{solution}
+% \end{solution}
 
 \begin{exercise}
     Let $M$ be a Markov chain
@@ -69,10 +69,25 @@
     %
     Show that $\Pr {M \models L}$ can be computed in \PTIME.
 \end{exercise}
-\begin{solution}
-\end{solution}
+% \begin{solution}
+% \end{solution}
 
 \section*{Random walks}
+
+\begin{exercise}
+    Let $p \in [0, 1]$ be a parameter.
+    Consider the random walk induced by the 1-state pPDS
+    over stack alphabet $\Gamma = \set X$ and transitions
+    %
+    \begin{align*}
+        X \goesto {1-p} \varepsilon
+            \quad\text{and}\quad
+                X \goesto p X^2.
+    \end{align*}
+    %
+    Show that whether the probability of termination from configuration $X$ is $1$
+    depends on the value of $p$.
+\end{exercise}
 
 \begin{exercise}
     Let $n \in \N$ and $p \in [0, 1]$ be parameters.
@@ -88,40 +103,34 @@
     Show that the probability of termination $x$ from configuration $X\varepsilon$ is $1$
     if, and only if, $p = 1 / n$.
 \end{exercise}
-\begin{solution}
-    We have that $x$ is the least nonnegative solution of
-    %
-    \begin{align*}
-        x = 1 - p + p \cdot x^n.
-    \end{align*}
-    %
-    We are interested in the value of $p$ which maximises $x$.
-    %
-\end{solution}
+% \begin{solution}
+%     We have that $x$ is the least nonnegative solution of
+%     %
+%     \begin{align*}
+%         x = 1 - p + p \cdot x^n.
+%     \end{align*}
+%     %
+%     We are interested in the value of $p$ which maximises $x$.
+%     %
+% \end{solution}
+
+\section*{Probabilistic pushdown automata}
 
 \begin{exercise}
     Show that the quantitative reachability problem for pPDA is decidable with \PSPACE~complexity.
     \emph{Hint: Use the fact that the existential fragment of Tarki's arithmetic is decidable in \PSPACE.}
 \end{exercise}
-\begin{solution}
-    It suffices to consider separately the three cases
-    $\sim = \set{<, =, >}$.
-\end{solution}
+% \begin{solution}
+%     It suffices to consider separately the three cases
+%     $\sim \in \set{<, =, >}$.
+% \end{solution}
 
 \begin{exercise}
+    Can we decide efficiently whether $[pXq] = 0$?
+    And whether $[pXq] = 1$?
 \end{exercise}
-\begin{solution}
-\end{solution}
-
-\begin{exercise}
-\end{exercise}
-\begin{solution}
-\end{solution}
-
-\begin{exercise}
-\end{exercise}
-\begin{solution}
-\end{solution}
+% \begin{solution}
+% \end{solution}
 
 \bibliographystyle{plainurl}
 \bibliography{bibliography}
