@@ -7,11 +7,14 @@ It is possible to choose a subset of questions, as follows:
 - grade 5 --> choose 9 questions
 - grade 4 --> choose 6 questions
 - grade 3 --> choose 4 questions
+
 # Homework
 Please send me your solutions in PDF format.
 * [First set](./assets/homework/01.pdf) of homeworks, **deadline 2026/04/22**.
+
 # Oral exam
 Please find  the questions for the oral exam.
+
 #  Calendar
 
 | week |  date | lecture                                | tutorial                                     | note                       |
