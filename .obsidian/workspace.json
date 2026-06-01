@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "c0dcb169386a63b3",
+        "id": "3d8fd8f874dffcac",
         "type": "tabs",
         "children": [
           {
-            "id": "1e6c3fd97753be75",
+            "id": "8ec921713bdc9b82",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/lectures/04/summary.md",
+                "file": "docs/index.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "summary"
+              "title": "index"
             }
           }
         ]
@@ -183,28 +183,37 @@
       "bases:Create new base": false
     }
   },
-  "active": "1e6c3fd97753be75",
+  "active": "8ec921713bdc9b82",
   "lastOpenFiles": [
-    "docs/assets/pdf/FWW97.pdf",
-    "docs/assets/pdf/BEM97.pdf",
-    "docs/assets/pdf/CFSM.pdf",
-    "docs/assets/pdf/cece-finkel-iyer.pdf",
-    "docs/assets/pdf/abdulla-jonsson.pdf",
-    "docs/lectures/03/summary.md",
-    "docs/lectures/04/summary.md",
-    "docs/assets/pdf/well-structured.pdf",
+    "docs/exam.md",
     "docs/index.md",
-    "docs/lectures/04",
-    "docs/assets/tutorials/build/03.pdf",
-    "docs/assets/tutorials/03.synctex(busy)",
-    "docs/assets/tutorials/03.out",
-    "docs/assets/tutorials/03.aux",
+    "docs/assets/tutorials/11.synctex(busy)",
+    "docs/assets/tutorials/pdflatex77588.fls",
+    "docs/assets/tutorials/pdflatex77275.fls",
+    "docs/assets/tutorials/pdflatex76669.fls",
+    "docs/assets/tutorials/pdflatex75148.fls",
+    "docs/assets/tutorials/pdflatex66893.fls",
+    "docs/assets/tutorials/pdflatex66285.fls",
+    "docs/assets/tutorials/pdflatex66017.fls",
+    "docs/assets/tutorials/pdflatex65101.fls",
+    "docs/assets/tutorials/pdflatex63754.fls",
+    "docs/lectures/10/summary.md",
+    "docs/lectures/09/summary.md",
+    "docs/lectures/08/summary.md",
+    "docs/lectures/06/summary.md",
+    "docs/lectures/07/summary.md",
+    "docs/lectures/05/summary.md",
+    "docs/lectures/04/summary.md",
+    "docs/lectures/03/summary.md",
     "docs/lectures/02/summary.md",
+    "docs/lectures/11/summary.md",
+    "assets/tutorials/build/07.pdf.md",
+    "README.md",
+    "assets/homeworks/01.pdf.md",
     "docs/tutorials/02/summary.md",
     "docs/lectures/01/summary.md",
     "docs/assets/vardi.pdf.md",
     "docs/lectures/02/attachments/vardi.md",
-    "docs/lectures/01/lecture.md",
-    "README.md"
+    "docs/lectures/01/lecture.md"
   ]
 }
