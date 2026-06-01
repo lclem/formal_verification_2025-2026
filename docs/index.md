@@ -17,9 +17,11 @@
 	- Ramadge-Wonham problem
 - proving termination of programs with the size-change principle (1 lecture)
 * computing invariants in polynomial dynamical systems (1 lecture)
-# Homeworks
+# Homework
 Please send me your solutions in PDF format.
 * [First set](./assets/homework/01.pdf) of homeworks, **deadline 2026/04/22**.
+# Oral exam
+Please find [here](exam.md) the questions for the oral exam.
 #  Calendar
 
 | week |  date | lecture                                | tutorial                                     | note                      |
@@ -38,7 +40,7 @@ Please send me your solutions in PDF format.
 |   11 | 11.05 | [lecture 08](docs/lectures/08/summary) | [tutorial 08](assets/tutorials/build/08.pdf) |                           |
 |   12 | 18.05 | [lecture 09](docs/lectures/09/summary) | [tutorial 09](assets/tutorials/build/09.pdf) |                           |
 |   13 | 25.05 | [lecture 10](docs/lectures/10/summary) | [tutorial 10](assets/tutorials/build/10.pdf) |                           |
-|   14 | 01.06 |                                        |                                              |                           |
+|   14 | 01.06 | [lecture 11](docs/lectures/11/summary) | [tutorial 11](assets/tutorials/build/11.pdf) |                           |
 |   15 | 08.06 |                                        |                                              |                           |
 
 [ [USOS](https://usosweb.mimuw.edu.pl/kontroler.php?_action=katalog2/przedmioty/pokazPrzedmiot&kod=1000-2M25WER) ]

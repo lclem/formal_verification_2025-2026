@@ -1,0 +1,129 @@
+% !TEX root = 11.tex
+\include{common.tex}
+
+\title{Formal verification - Tutorial 11}
+\date{01/06/2026}
+
+\begin{document}
+
+\maketitle
+
+\section*{Finite Markov chains}
+
+\begin{exercise}
+    Let $M = \tuple{S, \to}$ be a finite Markov chain
+    and consider a target set $T \subseteq S$.
+    %
+    For every initial state $s \in S$, let
+    %
+    \begin{align*}
+        x_s = \Pr {M, s \models \F T}
+    \end{align*}
+    %
+    be the probability of reaching a state in $T$ when started from $s$.
+    %
+    \begin{enumerate}
+        \item Can we compute the set of initial states
+        $s$ such that $x_s = 0$ without solving linear equations?
+
+        \item Can we compute the set of initial states
+        $s$ such that $x_s = 1$ without solving linear equations?
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+    Let $M = \tuple{S, \to}$ be a finite Markov chain
+    and consider two sets $I, T \subseteq S$.
+    %
+    For every initial state $s \in S$, let
+    %
+    \begin{align*}
+        x_s = \Pr {M, s \models I \U T}
+    \end{align*}
+    %
+    be the probability of reaching a state in $T$ while staying in $I$ when started from $s$.
+    %
+    \begin{enumerate}
+        \item Provide a characterisation of the vector of probabilities $\tuple{x_s}_{s \in S}$.
+    
+        \item Can we compute these probabilities?
+    \end{enumerate}
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+    Let $M$ be a Markov chain
+    and let $L$ be an $\omega$-regular property of $M$ recognised by a nondeterministic Büchi automaton $A$.
+    %
+    Can we compute $\Pr {M \models L}$ by looking at the synchronised product $M \times A$?
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+    Let $M$ be a Markov chain
+    and let $L$ be an $\omega$-regular property of $M$ recognised by an unambiguous Büchi automaton $A$.
+    %
+    Show that $\Pr {M \models L}$ can be computed in \PTIME.
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\section*{Random walks}
+
+\begin{exercise}
+    Let $n \in \N$ and $p \in [0, 1]$ be parameters.
+    Consider the random walk induced by the 1-state pPDS
+    over stack alphabet $\Gamma = \set X$ and transitions
+    %
+    \begin{align*}
+        X \goesto {1-p} \varepsilon
+            \quad\text{and}\quad
+                X \goesto p X^n.
+    \end{align*}
+    %
+    Show that the probability of termination $x$ from configuration $X\varepsilon$ is $1$
+    if, and only if, $p = 1 / n$.
+\end{exercise}
+\begin{solution}
+    We have that $x$ is the least nonnegative solution of
+    %
+    \begin{align*}
+        x = 1 - p + p \cdot x^n.
+    \end{align*}
+    %
+    We are interested in the value of $p$ which maximises $x$.
+    %
+\end{solution}
+
+\begin{exercise}
+    Show that the quantitative reachability problem for pPDA is decidable with \PSPACE~complexity.
+    \emph{Hint: Use the fact that the existential fragment of Tarki's arithmetic is decidable in \PSPACE.}
+\end{exercise}
+\begin{solution}
+    It suffices to consider separately the three cases
+    $\sim = \set{<, =, >}$.
+\end{solution}
+
+\begin{exercise}
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\begin{exercise}
+\end{exercise}
+\begin{solution}
+\end{solution}
+
+\bibliographystyle{plainurl}
+\bibliography{bibliography}
+
+\end{document}
