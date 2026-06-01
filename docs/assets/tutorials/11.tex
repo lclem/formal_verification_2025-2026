@@ -8,7 +8,7 @@
 
 \maketitle
 
-\section*{Finite Markov chains}
+\section*{Markov chains}
 
 \begin{exercise}
     Let $M = \tuple{S, \to}$ be a finite Markov chain
@@ -29,9 +29,25 @@
         \item Can we compute the set of initial states
         $s$ such that $x_s = 1$ without solving linear equations?
     \end{enumerate}
+    %
+    Does the answers change if $M$ is infinite-state?
 \end{exercise}
-% \begin{solution}
-% \end{solution}
+\begin{solution}
+    Regarding the first question, we note that $x_s = 0$ if, and only if, there is no path from $s$ to any state in $T$.
+    Since paths are finite, this observation holds even for infinite-state Markov chains.
+    It follows that we can compute the set of states $s$ such that $x_s = 0$
+    by performing a graph search on the underlying graph of $M$.
+
+    Regarding the second question, we note that the set of states that appear infinitely often in a run of $M$ is an end component of $M$.
+    We can thus decompose $M$ into its end components $C_1, \dots, C_n$ (which are the bottom strongly connected components of the underlying graph).
+    We then have that $x_s = 1$ if, and only if, every end component reachable from $s$ intersects $T$.
+
+    The answer for the second question changes for infinite-state Markov chains.
+    For instance consider the one-sided random walk
+    with reachability probability satisfying $x = 1 - p + p \cdot x^2$.
+    %
+    Whether $x = 1$ depends on the actual value of $p$, not just on whether $p$ is zero or not.
+\end{solution}
 
 \begin{exercise}
     Let $M = \tuple{S, \to}$ be a finite Markov chain
@@ -51,17 +67,56 @@
         \item Can we compute these probabilities?
     \end{enumerate}
 \end{exercise}
-% \begin{solution}
-% \end{solution}
+\begin{solution}
+    We reduce the problem to that of computing reachability probabilities when $I = S$ (trivial invariant).
+    First, make all states in $T$ and in $S \setminus (I \cup T)$ absorbing.
+    Clearly, this operation does not change the probabilities $x_s$.
+    In the new chain, compute the probability of reaching $T$.
+    This will be the same as the probability of reaching $T$ while staying in $I$ in the original chain.
+    The reason is that in the original chain we can never step out of $I$ while trying to reach $T$.
+    In the new chain, we model this by making $T$ unreachable when stepping out of $I$.
+\end{solution}
 
 \begin{exercise}
     Let $M$ be a Markov chain
     and let $L$ be an $\omega$-regular property of $M$ recognised by a nondeterministic Büchi automaton $A$.
     %
-    Can we compute $\Pr {M \models L}$ by looking at the synchronised product $M \times A$?
+    Can we decide efficiently
+    %
+    \begin{enumerate}
+        \item whether $\Pr {M \models L} = 0$?
+        \item whether $\Pr {M \models L} = 1$?
+    \end{enumerate} 
 \end{exercise}
-% \begin{solution}
-% \end{solution}
+\begin{solution}
+    First of all, notice that both queries are decidable, in \PSPACE,
+    by converting $A$ into a deterministic parity automaton $B$ (with a singly exponential blow-up)
+    and then computing the probability that $M$ satisfies the parity condition of $D$ (in \NC 2).
+
+    We show that $\Pr {M \models L} = 1$ is \PSPACE-hard.
+    We reduce from the universality problem for nondeterministic finite automata, which is well-known to be \PSPACE-hard.
+    Let $B$ be a nondeterministic finite automaton over alphabet $\Sigma = \set {a, b}$.
+    We construct a Markov chain $M$ with three states $a, b, \dollar$ and transitions
+    %
+    \begin{align*}
+        &a \goesto {1/3} a, a \goesto {1/3} b, a \goesto {1/3} \dollar, \\
+        &b \goesto {1/3} a, b \goesto {1/3} b, b \goesto {1/3} \dollar, \\
+        &\dollar \goesto 1 \dollar.
+    \end{align*}
+    %
+    We construct a nondeterministic Büchi automaton $A$
+    recognising {$\lang A = \lang B \cdot \dollar^\omega$}.
+    %
+    We claim that $\Pr {M \models L} = 1$ if, and only if, $B$ is universal ($\lang B = \Sigma^*$).
+    %
+    The ``only if'' direction is easy: If $B$ is universal, then $\Pr {M \models L} = 1$
+    since all runs of $M$ will eventually almost surely reach $\dollar$ and thus satisfy $L$.
+    %
+    For the ``if'' direction, assume that $B$ is not universal, and let $w \in \Sigma^* \setminus \lang B$.
+    We have that the whole cylinder set $w \Sigma^\omega$ is disjoint from $\lang A$.
+    This set has measure $1/3^{|w|}$, since $M$ generates words uniformly at random,
+    and thus $\Pr {M \models L} < 1 - 1/3^{|w|} < 1$, as required.
+\end{solution}
 
 \begin{exercise}
     Let $M$ be a Markov chain
@@ -69,8 +124,32 @@
     %
     Show that $\Pr {M \models L}$ can be computed in \PTIME.
 \end{exercise}
-% \begin{solution}
-% \end{solution}
+\begin{solution}
+    We pretend that $A$ is deterministic and we compute the product $M \times A$ of $M$ and $A$.
+    The product contains a weighted edge
+    %
+    \begin{align*}
+        \tuple {s, p} \goesto x \tuple {t, q}
+    \end{align*}
+    %
+    when $s \goesto x t$ is a transition of $M$ (with probability $x$)
+    and $p \goesto s q$ is a transition of $A$ reading input symbol $s$.
+    %
+    Since $A$ is nondeterministic, the weight of edges outgoing from $\tuple {s, p}$ may sum up to more than $1$.
+    Never mind that.
+    Decompose $M \times A$ into its bottom strongly connected components
+    and let $C$ be the union of all the bottom strongly connected components that contain an accepting state of $A$.
+    %
+    Consider the least nonnegative solution to the system of equations
+    %
+    \begin{align*}
+        x_{s, p} &= 1 && \text{if $\tuple {s, p} \in C$}, \text{ and otherwise } \\
+        x_{s, p} &= \sum_{\tuple {s, p} \goesto x \tuple {t, q}} x \cdot x_{t, q}.
+    \end{align*}
+    %
+    Since $A$ is unambiguous (accepted words have a unique accepting run), $x_{s, p} \in [0, 1]$, and in $\Q$.
+    Then, $\Pr {M \models L} = \sum_{s \in S} x_{s, p_0}$, where $p_0$ is the initial state of $A$.
+\end{solution}
 
 \section*{Random walks}
 
@@ -82,12 +161,28 @@
     \begin{align*}
         X \goesto {1-p} \varepsilon
             \quad\text{and}\quad
-                X \goesto p X^2.
+                X \goesto p X^3.
     \end{align*}
     %
-    Show that whether the probability of termination from configuration $X$ is $1$
-    depends on the value of $p$.
+    Compute the probability of termination from configuration $X$ as a function of $p$.
+    For which values of $p$ is this probability equal to $1$?
 \end{exercise}
+\begin{solution}
+    The required probability $x$ is the least nonnegative solution of
+    %
+    \begin{align*}
+        x = 1 - p + p \cdot x^3.
+    \end{align*}
+    %
+    We can solve this equation and obtain that $x$ is the minimum of $1$ and (for $p > 0$)
+    %
+    \begin{align*}
+        \frac { -p + \sqrt{4 p - 3 p^2} } {2 p}
+    \end{align*}
+    %
+    This is a monotonically decreasing function of $p$
+    that is equal to $1$ when $p = 1/3$.
+\end{solution}
 
 \begin{exercise}
     Let $n \in \N$ and $p \in [0, 1]$ be parameters.
@@ -101,18 +196,34 @@
     \end{align*}
     %
     Show that the probability of termination $x$ from configuration $X\varepsilon$ is $1$
-    if, and only if, $p = 1 / n$.
+    if, and only if, $p \leq 1 / n$.
 \end{exercise}
-% \begin{solution}
-%     We have that $x$ is the least nonnegative solution of
-%     %
-%     \begin{align*}
-%         x = 1 - p + p \cdot x^n.
-%     \end{align*}
-%     %
-%     We are interested in the value of $p$ which maximises $x$.
-%     %
-% \end{solution}
+\begin{solution}
+    The expected drift of the random walk is
+    \begin{align*}
+        (1-p) \cdot (-1) + p \cdot (n-1) = p \cdot n - 1.
+    \end{align*}
+    %
+    If $p < 1/n$, then the expected drift is negative, and thus $x = 1$.
+    If $p > 1/n$, then the expected drift is positive, and thus $x < 1$.
+    If $p = 1/n$ (critical value), then the expected drift is zero, and we need to argue differently.
+    %
+    The required probability $x$ is the least nonnegative solution of
+    %
+    \begin{align*}
+        x = 1 - p + p \cdot x^n.
+    \end{align*}
+    %
+    In other words we have $x^n - \frac 1 p \cdot x + \frac {1 - p} p = 0$.
+    The value $x = 1$ is always a solution of this equation, regardless of the value of $p$.
+    We thus divide the polynomial by $x - 1$ and obtain
+    %
+    \begin{align*}
+        1 - p \cdot (1 + x + \cdots + x^{n-1}) = 0.
+    \end{align*}
+    %
+    This equation has solution $x = 1$ if, and only if, $p = 1/n$.
+\end{solution}
 
 \section*{Probabilistic pushdown automata}
 
@@ -120,17 +231,22 @@
     Show that the quantitative reachability problem for pPDA is decidable with \PSPACE~complexity.
     \emph{Hint: Use the fact that the existential fragment of Tarki's arithmetic is decidable in \PSPACE.}
 \end{exercise}
-% \begin{solution}
-%     It suffices to consider separately the three cases
-%     $\sim \in \set{<, =, >}$.
-% \end{solution}
+\begin{solution}
+    % It suffices to consider separately the three cases $\sim \in \set{<, =, >}$.
+    We can massage the logical sentence to have only universal quantification,
+    and then we can negate it to obtain an existential sentence.
+\end{solution}
 
 \begin{exercise}
     Can we decide efficiently whether $[pXq] = 0$?
     And whether $[pXq] = 1$?
 \end{exercise}
-% \begin{solution}
-% \end{solution}
+\begin{solution}
+    The first query $[pXq] = 0$ is decidable in \PTIME.
+    Its complement, $[pXq] > 0$, is equivalent to reachability $pX \to^* q\varepsilon$ in the underlying pushdown system,
+    which is decidable in \PTIME.
+    % TODO: second query $[pXq] = 1$
+\end{solution}
 
 \bibliographystyle{plainurl}
 \bibliography{bibliography}

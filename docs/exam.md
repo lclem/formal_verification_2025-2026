@@ -8,4 +8,4 @@
 7. Decidability of the size-change termination problem
 8. Proof of the Büchi-Landweber's theorem (any)
 9. Equivalence between rational series and bilinear control systems
-10. Quantitative verification of probabilistic pushdown automata via Tarski's arithmetic
+10. Computability of the measure of ω-regular properties of finite-state Markov chains
