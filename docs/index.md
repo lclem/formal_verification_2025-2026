@@ -31,7 +31,7 @@ Please send me your solutions in PDF format.
 |   12 | 18.05 | [lecture 09](docs/lectures/09/summary) | [tutorial 09](assets/tutorials/build/09.pdf) | Büchi-Landweber theorem    |
 |   13 | 25.05 | [lecture 10](docs/lectures/10/summary) | [tutorial 10](assets/tutorials/build/10.pdf) | bilinear control systems   |
 |   14 | 01.06 | [lecture 11](docs/lectures/11/summary) | [tutorial 11](assets/tutorials/build/11.pdf) | probabilistic verification |
-|   15 | 08.06 |                                        |                                              |                            |
+|   15 | 08.06 | [lecture 12](docs/lectures/12/summary) | XXXXXX                                       | lecture by Piotrek Hofman  |
 
 # Original plan (14 lectures)
 - verification for finite-state systems (2 lectures)
